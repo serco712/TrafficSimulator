@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public abstract class Road extends SimulatedObject {
 		this.maxSpeed = maxSpeed;
 		conditions = weather;
 		this.length = length;
+		vehicles = new ArrayList<>();
 	}
 
 
@@ -82,7 +84,7 @@ public abstract class Road extends SimulatedObject {
 	}
 	
 	void exit(Vehicle v) {
-		List<Vehicle> aux;
+		List<Vehicle> aux = new ArrayList<>();
 		for(Vehicle ve : vehicles) {
 			if(!ve.equals(v)) 
 				aux.add(ve);
