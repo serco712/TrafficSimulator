@@ -144,4 +144,7 @@ public abstract class Road extends SimulatedObject {
 	List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
 	}
+	
+	// Good morning to everybody
+	
 }
