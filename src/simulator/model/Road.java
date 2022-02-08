@@ -144,4 +144,9 @@ public abstract class Road extends SimulatedObject {
 	List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
 	}
+	
+	
+	for (Map<Road, List<Vehicle>> v : road_queue)
+	// Good morning to everybody
+	
 }
