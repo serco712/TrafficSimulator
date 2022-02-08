@@ -27,4 +27,11 @@ public class RoadMap {
 		road_map = new HashMap<String, Road>();
 		vehicle_map = new HashMap<String, Vehicle>();
 	}
+	
+	void addJunction(Junction j) {
+		if(junctions.contains(j))
+			throw new IllegalArgumentException("The junction exists");
+		junctions.add(j);
+		junction_map.put(j.getId(), j);
+	}
 }
