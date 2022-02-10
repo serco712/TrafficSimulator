@@ -57,6 +57,7 @@ public class RoadMap {
 		
 		if(check)
 			throw new IllegalArgumentException("The itinerary is not correct");
+		//TODO Doubt
 		
 		vehicles.add(v);
 		vehicle_map.put(v.getId(), v);
@@ -117,7 +118,7 @@ public class RoadMap {
 		for(Road r : roads) {
 			ja.put(r.report());
 		}
-		jo.put("roads", ja);
+		jo.put("road", ja);
 		
 		ja = new JSONArray();
 		for(Vehicle v : vehicles) {

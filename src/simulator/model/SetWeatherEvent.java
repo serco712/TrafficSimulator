@@ -19,7 +19,7 @@ public class SetWeatherEvent extends Event {
 	void execute(RoadMap map) {
 		for(Pair<String, Weather> p : ws) {
 			if(map.getRoad(p.getFirst()) == null)
-				throw new IllegalArgumentException("The specified weather doesn't exist");
+				throw new IllegalArgumentException("The specified road doesn't exist");
 			map.getRoad(p.getFirst()).setWeather(p.getSecond());
 		}
 	}
