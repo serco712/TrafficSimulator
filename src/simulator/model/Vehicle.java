@@ -137,4 +137,6 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 		else 
 			return 0;
 	}
+	
+	
 }

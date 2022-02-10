@@ -7,6 +7,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import simulator.misc.SortedArrayList;
+
 public abstract class Road extends SimulatedObject {
 	
 	protected Junction origin;
@@ -80,7 +82,7 @@ public abstract class Road extends SimulatedObject {
 	
 	void enter(Vehicle v) {
 		vehicles.add(v);
-		// TODO order
+		// TODO order: learn how to use comparator.
 	}
 	
 	void exit(Vehicle v) {
@@ -95,13 +97,13 @@ public abstract class Road extends SimulatedObject {
 	
 	void setWeather(Weather w) {
 		if(w == null)
-			throw new IllegalArgumentException("’weather’ must be not null.");
+			throw new IllegalArgumentException("weather must be not null.");
 		conditions = w;
 	}
 	
 	void addContamination(int c) {
 		if(c < 0)
-			throw new IllegalArgumentException("’contamination’ must be a positive number.");
+			throw new IllegalArgumentException("contamination� must be a positive number.");
 		totalCO2 += c;
 	}
 	
