@@ -6,9 +6,11 @@ import simulator.model.DequeuingStrategy;
 import simulator.model.MoveAllStrategy;
 
 public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy> {
-
-	public MoveAllStrategyBuilder(String type) {
-		super(type);
+	
+	private static final String TYPE = "most_all_dqs";
+	
+	public MoveAllStrategyBuilder() {
+		super(TYPE);
 	}
 
 	@Override

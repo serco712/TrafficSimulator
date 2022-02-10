@@ -6,9 +6,11 @@ import simulator.model.LightSwitchingStrategy;
 import simulator.model.MostCrowdedStrategy;
 
 public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy> {
-
-	public MostCrowdedStrategyBuilder(String type) {
-		super(type);
+	
+	private static final String TYPE = "most_crowded_lss";
+	
+	public MostCrowdedStrategyBuilder() {
+		super(TYPE);
 	}
 
 	@Override

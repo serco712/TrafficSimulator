@@ -7,8 +7,10 @@ import simulator.model.MoveFirstStrategy;
 
 public class MoveFirstStrategyBuilder extends Builder<DequeuingStrategy> {
 
-	public MoveFirstStrategyBuilder(String type) {
-		super(type);
+	private static final String TYPE = "move_first_dqs";
+	
+	public MoveFirstStrategyBuilder() {
+		super(TYPE);
 	}
 
 	@Override

@@ -20,4 +20,7 @@ public enum Weather {
 	public int getFactCit() {
 		return factCit;
 	}
+	
+	return new NewJunctionEvent(data.getInt("time"), data.getString("id"),
+			data.get)
 }
