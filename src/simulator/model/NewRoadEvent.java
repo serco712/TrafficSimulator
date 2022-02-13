@@ -4,9 +4,9 @@ public abstract class NewRoadEvent extends Event {
 	
 	protected String id;
 	
-	protected Junction srcJunc;
+	protected String srcJunc;
 	
-	protected Junction destJunc;
+	protected String destJunc;
 	
 	protected int maxSpeed;
 	
@@ -16,7 +16,11 @@ public abstract class NewRoadEvent extends Event {
 	
 	protected Weather weather;
 	
-	NewRoadEvent(int time, String id, Junction srcJunc, Junction destJunc, int maxSpeed,
+	protected Junction src;
+	
+	protected Junction dest;
+	
+	NewRoadEvent(int time, String id, String srcJunc, String destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {
 		super(time);
 		this.id = id;
@@ -30,6 +34,8 @@ public abstract class NewRoadEvent extends Event {
 
 	@Override
 	void execute(RoadMap map) {
+		src = map.getJunction(srcJunc);
+		dest = map.getJunction(destJunc);
 		map.addRoad(createRoadObject());
 	}
 	
