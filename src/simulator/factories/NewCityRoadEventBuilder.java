@@ -7,7 +7,7 @@ public class NewCityRoadEventBuilder extends NewRoadEventBuilder{
 	
 	private static final String TYPE = "new_city_road";
 	
-	NewCityRoadEventBuilder() {
+	public NewCityRoadEventBuilder() {
 		super(TYPE);
 	}
 

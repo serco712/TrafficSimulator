@@ -29,7 +29,7 @@ public abstract class NewRoadEventBuilder extends Builder<Event> {
 
 	@Override
 	protected Event createTheInstance(JSONObject data) {
-		// TODO not trust the old man
+		
 		time = data.getInt("time");
 		_id = data.getString("id");
 		src = data.getString("src");

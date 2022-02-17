@@ -10,7 +10,8 @@ public class CityRoad extends Road {
 	@Override
 	void reduceTotalContamination() {
 		int x = conditions.getFactCit();
-		if(totalCO2 - x < 0) totalCO2 = 0; // TODO doubt
+		if(totalCO2 - x < 0) 
+			totalCO2 = 0;
 		else totalCO2 -= x;
 	}
 

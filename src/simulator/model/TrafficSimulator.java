@@ -12,7 +12,7 @@ public class TrafficSimulator {
 	
 	private int _time;
 	
-	TrafficSimulator() {
+	public TrafficSimulator() {
 		map = new RoadMap();
 		events = new SortedArrayList<>();
 	}
