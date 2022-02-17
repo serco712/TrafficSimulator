@@ -50,9 +50,14 @@ public class Junction extends SimulatedObject {
 	@Override
 	void advance(int time) {
 		List<Vehicle> aux = dequeStrategy.dequeue(queue.get(currGreen));
+		
 		for(Vehicle v : aux)
 			v.moveToNextRoad();
-		// TODO delete from queue
+		
+		for(Vehicle v : queue.get(currGreen)) {
+			if (aux.contains(v))
+				queue.get(currGreen).remove(v);
+		}
 		
 		int change = switchStrategy.chooseNextGreen(incomingRoad, queue, currGreen, lastSwitchingTime, 
 				time);

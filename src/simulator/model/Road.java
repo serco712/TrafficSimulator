@@ -39,9 +39,9 @@ public abstract class Road extends SimulatedObject {
 			throw new IllegalArgumentException("’contLimit’ must be a positive number.");
 		else if(length < 0)
 			throw new IllegalArgumentException("’length’ must be a positive number.");
-		else if(srcJunc != null || destJunc != null)
+		else if(srcJunc == null || destJunc == null)
 			throw new IllegalArgumentException("the Junctions must be not null.");
-		else if (weather != null)
+		else if (weather == null)
 			throw new IllegalArgumentException("’Weather’ must be not null.");
 		origin = srcJunc;
 		end = destJunc;

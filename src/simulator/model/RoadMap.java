@@ -55,9 +55,8 @@ public class RoadMap {
 				check = true;
 		}
 		
-		if(check)
-			throw new IllegalArgumentException("The itinerary is not correct");
-		//TODO Doubt
+		//if(check)
+			//throw new IllegalArgumentException("The itinerary is not correct");
 		
 		vehicles.add(v);
 		vehicle_map.put(v.getId(), v);

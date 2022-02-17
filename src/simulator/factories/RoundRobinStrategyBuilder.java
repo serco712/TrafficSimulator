@@ -9,6 +9,8 @@ public class RoundRobinStrategyBuilder extends Builder<LightSwitchingStrategy> {
 
 	private static final String TYPE = "round_robin_lss";
 	
+	private static final int DEFAULT_VALUE = 1;
+	
 	public RoundRobinStrategyBuilder() {
 		super(TYPE);
 	}
@@ -18,7 +20,7 @@ public class RoundRobinStrategyBuilder extends Builder<LightSwitchingStrategy> {
 		int ts;
 		
 		if (data.get("timeslot") == null)
-			ts = 1;
+			ts = DEFAULT_VALUE;
 		else
 			ts = data.getInt("timeslot");
 		
