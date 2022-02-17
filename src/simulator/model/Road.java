@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -81,8 +82,13 @@ public abstract class Road extends SimulatedObject {
 	}
 	
 	void enter(Vehicle v) {
+		if (v.getLocation() != 0 && v.getSpeed() != 0) 
+			throw new IllegalArgumentException("Location and speed must be 0");
+		
 		vehicles.add(v);
-		// TODO order: learn how to use comparator.
+		
+		Comparator<Vehicle> location = Comparator.comparing(Vehicle::getLocation);
+		vehicles.sort(location);
 	}
 	
 	void exit(Vehicle v) {

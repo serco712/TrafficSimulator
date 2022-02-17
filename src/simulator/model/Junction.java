@@ -92,7 +92,7 @@ public class Junction extends SimulatedObject {
 			throw new IllegalArgumentException("the road must entry into this junction.");
 		
 		incomingRoad.add(r);
-		List<Vehicle> aux = new ArrayList<>(); // TODO doubt
+		List<Vehicle> aux = new ArrayList<>();
 		for(Vehicle v : r.getVehicles()) {
 			aux.add(v);
 		}

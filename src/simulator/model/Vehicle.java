@@ -93,7 +93,15 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 	}
 	
 	void moveToNextRoad() {
+		if (status != VehicleStatus.PENDING && status != VehicleStatus.WAITING)
+			throw new IllegalArgumentException("The car is neither pending nor waiting");
+			//TODO exception
 		
+		if (status == VehicleStatus.PENDING && !road.getDest().equals(itinerary.get(itinerary.size() - 1))) {
+			int i = itinerary.indexOf(road.getDest());
+			road = road.getDest().roadTo(itinerary.get(i + 1));
+			status = VehicleStatus.TRAVELING;
+		}
 	}
 
 	public int getLocation() {
