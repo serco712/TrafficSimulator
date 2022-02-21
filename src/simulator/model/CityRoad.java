@@ -5,6 +5,9 @@ public class CityRoad extends Road {
 	CityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {
 		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
+		
+		origin.addOutgoingRoad(this);
+		end.addIncomingRoad(this);
 	}
 
 	@Override

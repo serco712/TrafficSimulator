@@ -19,7 +19,6 @@ public class TrafficSimulator {
 	
 	public void addEvent(Event e) {
 		events.add(e);
-		//TODO sorted?
 	}
 	
 	public void advance() {

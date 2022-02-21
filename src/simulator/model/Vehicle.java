@@ -27,6 +27,8 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 	
 	private int totalDist;
 	
+	private int actJunct;
+	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		super(id);
 		if (maxSpeed < 0)
@@ -38,6 +40,8 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 		this.maxSpeed = maxSpeed;
 		this.contClass = contClass;
 		this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
+		status = VehicleStatus.PENDING;
+		actJunct = 0;
 	}
 
 	@Override
@@ -52,9 +56,10 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 			int c = (location - aux) * contClass;
 			
 			totalCO2 += c;
-			// TODO add to road
+			road.addContamination(totalCO2);
 			if(location >= road.getLength())
-				// TODO add to queue
+				road.exit(this);
+				road.getDest().enter(this);
 				status = VehicleStatus.WAITING;
 		}
 		else {
@@ -95,12 +100,18 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 	void moveToNextRoad() {
 		if (status != VehicleStatus.PENDING && status != VehicleStatus.WAITING)
 			throw new IllegalArgumentException("The car is neither pending nor waiting");
-			//TODO exception
 		
-		if (status == VehicleStatus.PENDING && !road.getDest().equals(itinerary.get(itinerary.size() - 1))) {
-			int i = itinerary.indexOf(road.getDest());
-			road = road.getDest().roadTo(itinerary.get(i + 1));
-			status = VehicleStatus.TRAVELING;
+		if (status.equals(VehicleStatus.PENDING) || status.equals(VehicleStatus.WAITING)) {
+			if (actJunct == itinerary.size() - 1 || actJunct == itinerary.size()) {
+				status = VehicleStatus.ARRIVED;
+			}
+			else {
+				road = itinerary.get(actJunct).roadTo(itinerary.get(actJunct + 1));
+				actJunct++;
+				road.enter(this);
+				
+				status = VehicleStatus.TRAVELING;
+			}
 		}
 	}
 

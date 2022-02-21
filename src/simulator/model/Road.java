@@ -30,7 +30,7 @@ public abstract class Road extends SimulatedObject {
 	
 	protected List<Vehicle> vehicles;
 	
-	Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
+	public Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {
 		super(id);
 		if(maxSpeed < 0)
@@ -122,11 +122,11 @@ public abstract class Road extends SimulatedObject {
 	}
 	
 	Junction getDest() {
-		return origin;
+		return end;
 	}
 	
 	Junction getSrc() {
-		return end;
+		return origin;
 	}
 	
 	Weather getWeather() {

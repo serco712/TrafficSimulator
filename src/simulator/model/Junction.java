@@ -49,15 +49,18 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance(int time) {
-		List<Vehicle> aux = dequeStrategy.dequeue(queue.get(currGreen));
-		
-		for(Vehicle v : aux)
-			v.moveToNextRoad();
-		
-		for(Vehicle v : queue.get(currGreen)) {
-			if (aux.contains(v))
-				queue.get(currGreen).remove(v);
+		if((currGreen != -1) && (!queue.isEmpty()) && queue.get(currGreen).isEmpty()) {
+			List<Vehicle> aux = dequeStrategy.dequeue(queue.get(currGreen));
+			
+			for(Vehicle v : aux)
+				v.moveToNextRoad();
+			
+			for(Vehicle v : queue.get(currGreen)) {
+				if (aux.contains(v))
+					queue.get(currGreen).remove(v);
+			}
 		}
+		
 		
 		int change = switchStrategy.chooseNextGreen(incomingRoad, queue, currGreen, lastSwitchingTime, 
 				time);
@@ -93,7 +96,7 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void addIncomingRoad(Road r) {
-		if (!r.getDest().equals(this))
+		if (!r.getDest().getId().equals(this._id))
 			throw new IllegalArgumentException("the road must entry into this junction.");
 		
 		incomingRoad.add(r);
