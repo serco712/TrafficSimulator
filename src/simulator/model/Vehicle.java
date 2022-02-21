@@ -56,11 +56,12 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 			int c = (location - aux) * contClass;
 			
 			totalCO2 += c;
-			road.addContamination(totalCO2);
-			if(location >= road.getLength())
-				road.exit(this);
+			road.addContamination(c);
+			if(location >= road.getLength()) {
 				road.getDest().enter(this);
 				status = VehicleStatus.WAITING;
+				setSpeed(0);
+			}
 		}
 		else {
 			actSpeed = 0;
@@ -84,6 +85,9 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 	}
 	
 	void setSpeed(int s) {
+		if (s < 0)
+			throw new IllegalArgumentException("Speed s must be a positive number");
+		
 		if(s > maxSpeed) 
 			actSpeed = maxSpeed;
 		else 
@@ -101,6 +105,7 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 		if (status != VehicleStatus.PENDING && status != VehicleStatus.WAITING)
 			throw new IllegalArgumentException("The car is neither pending nor waiting");
 		
+		road.exit(this);
 		if (status.equals(VehicleStatus.PENDING) || status.equals(VehicleStatus.WAITING)) {
 			if (actJunct == itinerary.size() - 1 || actJunct == itinerary.size()) {
 				status = VehicleStatus.ARRIVED;
@@ -108,6 +113,7 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 			else {
 				road = itinerary.get(actJunct).roadTo(itinerary.get(actJunct + 1));
 				actJunct++;
+				location = 0;
 				road.enter(this);
 				
 				status = VehicleStatus.TRAVELING;

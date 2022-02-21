@@ -61,6 +61,9 @@ public abstract class Road extends SimulatedObject {
 			v.setSpeed(calculateVehicleSpeed(v));
 			v.advance(time);
 		}
+		
+		Comparator<Vehicle> location = Comparator.comparing(Vehicle::getLocation);
+		vehicles.sort(location);
 	}
 
 	@Override
@@ -86,9 +89,6 @@ public abstract class Road extends SimulatedObject {
 			throw new IllegalArgumentException("Location and speed must be 0");
 		
 		vehicles.add(v);
-		
-		Comparator<Vehicle> location = Comparator.comparing(Vehicle::getLocation);
-		vehicles.sort(location);
 	}
 	
 	void exit(Vehicle v) {

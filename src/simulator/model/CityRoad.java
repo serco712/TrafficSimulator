@@ -15,7 +15,8 @@ public class CityRoad extends Road {
 		int x = conditions.getFactCit();
 		if(totalCO2 - x < 0) 
 			totalCO2 = 0;
-		else totalCO2 -= x;
+		else 
+			totalCO2 -= x;
 	}
 
 	@Override
