@@ -117,7 +117,7 @@ public class RoadMap {
 		for(Road r : roads) {
 			ja.put(r.report());
 		}
-		jo.put("road", ja);
+		jo.put("roads", ja);
 		
 		ja = new JSONArray();
 		for(Vehicle v : vehicles) {

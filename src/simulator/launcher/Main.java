@@ -26,9 +26,9 @@ import simulator.model.TrafficSimulator;
 public class Main {
 
 	private final static Integer _timeLimitDefaultValue = 10;
-	private static int ticks = 100;
-	private static String _inFile = "ex1.json";
-	private static String _outFile = "ex1output.json";
+	private static int ticks = 300;
+	private static String _inFile = "ex2.json";
+	private static String _outFile = "ex2output.json";
 	private static Factory<Event> _eventsFactory = null; 
 	private static void parseArgs(String[] args) {
 

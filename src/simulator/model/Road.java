@@ -2,13 +2,10 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import simulator.misc.SortedArrayList;
 
 public abstract class Road extends SimulatedObject {
 	
@@ -62,8 +59,8 @@ public abstract class Road extends SimulatedObject {
 			v.advance(time);
 		}
 		
-		Comparator<Vehicle> location = Comparator.comparing(Vehicle::getLocation);
-		vehicles.sort(location);
+		
+		vehicles.sort(new Vehicle.OrderVehicle());
 	}
 
 	@Override

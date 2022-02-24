@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
+public class Vehicle extends SimulatedObject {
 	
 	private List<Junction> itinerary;
 	
-	private int maxSpeed;
+	private int maxSpeed; 
 	
 	private int actSpeed;
 	
@@ -47,12 +47,17 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 	@Override
 	void advance(int time) {
 		int aux = location;
-		if(status != VehicleStatus.TRAVELING) {
-			if(location + actSpeed > road.getLength()) 
+		if(status == VehicleStatus.TRAVELING) {
+			if(location + actSpeed > road.getLength()) {
+				totalDist += (road.getLength() - location);
 				location = road.getLength();
-			else 
+			}
+				
+			else {
 				location += actSpeed;
-			
+				totalDist += actSpeed;
+			}
+				
 			int c = (location - aux) * contClass;
 			
 			totalCO2 += c;
@@ -78,8 +83,11 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 		jo.put("co2", totalCO2);
 		jo.put("class", contClass);
 		jo.put("status", status.toString());
-		jo.put("road", road.getId());
-		jo.put("location", location);
+		
+		if(!status.equals(VehicleStatus.ARRIVED)) {
+			jo.put("road", road.getId());
+			jo.put("location", location);
+		}
 		
 		return jo;
 	}
@@ -105,7 +113,8 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 		if (status != VehicleStatus.PENDING && status != VehicleStatus.WAITING)
 			throw new IllegalArgumentException("The car is neither pending nor waiting");
 		
-		road.exit(this);
+		if(road != null)
+			road.exit(this);
 		if (status.equals(VehicleStatus.PENDING) || status.equals(VehicleStatus.WAITING)) {
 			if (actJunct == itinerary.size() - 1 || actJunct == itinerary.size()) {
 				status = VehicleStatus.ARRIVED;
@@ -152,16 +161,18 @@ public class Vehicle extends SimulatedObject implements Comparator<Vehicle> {
 	public Road getRoad() {
 		return road;
 	}
+	
+	public static class OrderVehicle implements Comparator<Vehicle> {
 
-	@Override
-	public int compare(Vehicle v1, Vehicle v2) {
-		if (v1.location < v2.location) 
-			return -1;
-		else if (v1.location > v2.location) 
-			return 1;
-		else 
-			return 0;
+		@Override
+		public int compare(Vehicle v1, Vehicle v2) {
+			if (v1.location < v2.location) 
+				return 1;
+			else if (v1.location > v2.location) 
+				return -1;
+			else 
+				return 0;
+		}
+		
 	}
-	
-	
 }

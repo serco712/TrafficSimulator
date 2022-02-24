@@ -40,6 +40,7 @@ public class Controller {
 		PrintStream p = new PrintStream(out);
 
 		JSONArray ja = new JSONArray();
+		JSONArray j = new JSONArray();
 		JSONObject jo = new JSONObject();
 		
 		for(int i = 0; i < n; i++) {
@@ -48,7 +49,7 @@ public class Controller {
 		}
 		
 		jo.put("states", ja);
-		p.print(jo.toString());
+		p.print(jo);
 	}
 	
 	public void reset () {

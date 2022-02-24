@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,15 +50,17 @@ public class Junction extends SimulatedObject {
 
 	@Override
 	void advance(int time) {
-		if((currGreen != -1) && (!queue.isEmpty()) && queue.get(currGreen).isEmpty()) {
+		if((currGreen != -1) && (!queue.isEmpty()) && !queue.get(currGreen).isEmpty()) {
 			List<Vehicle> aux = dequeStrategy.dequeue(queue.get(currGreen));
 			
 			for(Vehicle v : aux)
 				v.moveToNextRoad();
 			
-			for(Vehicle v : queue.get(currGreen)) {
-				if (aux.contains(v))
-					queue.get(currGreen).remove(v);
+			for(Iterator<Vehicle> iterator = queue.get(currGreen).iterator(); iterator.hasNext();) {
+			    Vehicle ve = iterator.next();
+			    if(aux.contains(ve)) {
+			        iterator.remove();
+			    }
 			}
 		}
 		
@@ -78,7 +81,12 @@ public class Junction extends SimulatedObject {
 		JSONArray ja = new JSONArray();
 		
 		jo.put("id", _id);
-		jo.put("green", currGreen);
+		if(currGreen == -1) {
+			jo.put("green", "none");
+		}
+		else {
+			jo.put("green", incomingRoad.get(currGreen).getId());
+		}
 		
 		for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet()) {
 			JSONObject jo1 = new JSONObject();
