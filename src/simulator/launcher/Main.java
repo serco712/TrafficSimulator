@@ -27,8 +27,8 @@ public class Main {
 
 	private final static Integer _timeLimitDefaultValue = 10;
 	private static int ticks = 300;
-	private static String _inFile = "ex2.json";
-	private static String _outFile = "ex2output.json";
+	private static String _inFile = null;
+	private static String _outFile = null;
 	private static Factory<Event> _eventsFactory = null; 
 	private static void parseArgs(String[] args) {
 
@@ -41,10 +41,10 @@ public class Main {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
+			parseTicksOption(line);
 			parseHelpOption(line, cmdLineOptions);
 			parseInFileOption(line);
 			parseOutFileOption(line);
-			parseTicksOption(line);
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
@@ -70,7 +70,7 @@ public class Main {
 		cmdLineOptions.addOption(
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
-		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").desc("Ticks to the simulator's main loop (default value is 10)").build());
+		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's main loop (default value is 10)").build());
 		
 		return cmdLineOptions;
 	}
@@ -85,18 +85,24 @@ public class Main {
 	
 	private static void parseTicksOption(CommandLine line) throws ParseException {
 		try {
-			if(line.hasOption("t"))
-				ticks = Integer.valueOf(line.getOptionValue("t"));
-			else
+			if(line.hasOption("t")) {
+				String aux = line.getOptionValue("t");
+				System.out.println(aux);
+				ticks = Integer.parseInt(aux);
+			}
+			else {
 				ticks = _timeLimitDefaultValue;
+			}
 		}
 		catch (NumberFormatException ne) {
-			throw new ParseException(ne.getMessage());
+			throw new ParseException("Excpt");
 		}
 	}
 	
 	private static void parseInFileOption(CommandLine line) throws ParseException {
-		_inFile = line.getOptionValue("i");
+		String aux = line.getOptionValue("i");
+		System.out.println(aux);
+		_inFile = aux;
 		if (_inFile == null) {
 			throw new ParseException("An events file is missing");
 		}
@@ -128,7 +134,7 @@ public class Main {
 		
 		_eventsFactory = eventsFactory;
 	}
-
+	
 	private static void startBatchMode() throws IOException {
 		TrafficSimulator sim = new TrafficSimulator();
 		Controller c = new Controller(sim, _eventsFactory);
@@ -140,7 +146,7 @@ public class Main {
 
 	private static void start(String[] args) throws IOException {
 		initFactories();
-		//parseArgs(args);
+		parseArgs(args);
 		startBatchMode();
 	}
 
