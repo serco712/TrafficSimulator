@@ -19,7 +19,7 @@ class MainTest {
 			File expectedOutFile = new File(expOutFile);
 			
 			JSONObject jo1 = new JSONObject(new JSONTokener(new FileInputStream(currRunOutFile)));
-			JSONObject jo2 = new JSONObject(new JSONTokener(new FileInputStream(expectedOutFile)));
+		    JSONObject jo2 = new JSONObject(new JSONTokener(new FileInputStream(expectedOutFile)));
 			
 			//currRunOutFile.delete();
 			

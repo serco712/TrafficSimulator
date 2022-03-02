@@ -9827,7 +9827,7 @@
           "location": 10000,
           "id": "v1",
           "class": 5,
-          "speed": 65,
+          "speed": 0,
           "status": "WAITING"
         },
         {
@@ -13599,7 +13599,7 @@
           "location": 10000,
           "id": "v2",
           "class": 2,
-          "speed": 50,
+          "speed": 0,
           "status": "WAITING"
         }
       ],
@@ -20282,7 +20282,7 @@
           "location": 10000,
           "id": "v1",
           "class": 5,
-          "speed": 65,
+          "speed": 0,
           "status": "WAITING"
         },
         {
@@ -20346,7 +20346,7 @@
           "co2": 84320,
           "id": "v1",
           "class": 5,
-          "speed": 65,
+          "speed": 0,
           "status": "ARRIVED"
         },
         {
@@ -20410,7 +20410,7 @@
           "co2": 84320,
           "id": "v1",
           "class": 5,
-          "speed": 65,
+          "speed": 0,
           "status": "ARRIVED"
         },
         {
@@ -20474,7 +20474,7 @@
           "co2": 84320,
           "id": "v1",
           "class": 5,
-          "speed": 65,
+          "speed": 0,
           "status": "ARRIVED"
         },
         {

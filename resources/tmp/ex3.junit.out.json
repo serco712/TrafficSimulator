@@ -4604,7 +4604,7 @@
         "location": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "WAITING"
       }],
       "junctions": [
@@ -4639,7 +4639,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4674,7 +4674,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4709,7 +4709,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4744,7 +4744,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4779,7 +4779,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4814,7 +4814,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4849,7 +4849,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4884,7 +4884,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4919,7 +4919,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4954,7 +4954,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -4989,7 +4989,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5024,7 +5024,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5059,7 +5059,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5094,7 +5094,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5129,7 +5129,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5164,7 +5164,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5199,7 +5199,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5234,7 +5234,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5269,7 +5269,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5304,7 +5304,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5339,7 +5339,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5374,7 +5374,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5409,7 +5409,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5444,7 +5444,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [
@@ -5479,7 +5479,7 @@
         "co2": 10000,
         "id": "v1",
         "class": 1,
-        "speed": 80,
+        "speed": 0,
         "status": "ARRIVED"
       }],
       "junctions": [

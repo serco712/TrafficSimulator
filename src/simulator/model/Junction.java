@@ -54,8 +54,9 @@ public class Junction extends SimulatedObject {
 		if((currGreen != -1) && (!queue.isEmpty()) && !queue.get(currGreen).isEmpty()) {
 			List<Vehicle> aux = dequeStrategy.dequeue(queue.get(currGreen));
 			
-			for(Vehicle v : aux)
+			for(Vehicle v : aux) {
 				v.moveToNextRoad();
+			}
 			
 			for(Iterator<Vehicle> iterator = queue.get(currGreen).iterator(); iterator.hasNext();) {
 			    Vehicle ve = iterator.next();
@@ -63,6 +64,8 @@ public class Junction extends SimulatedObject {
 			        iterator.remove();
 			    }
 			}
+			
+			
 		}
 		
 		
@@ -90,28 +93,25 @@ public class Junction extends SimulatedObject {
 			jo.put("green", incomingRoad.get(currGreen).getId());
 		}
 		
+		
 		for(Road r : incomingRoad) {
-			jo1.put("road", r.getId());
-			JSONArray ja1 = new JSONArray();
-			for (Vehicle v : road_queue.get(r)) {
-				ja1.put(v.getId());
+			for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet()) {
+				if(m.getKey().getId().equalsIgnoreCase(r.getId())) {
+					jo1 = new JSONObject();
+					jo1.put("road", m.getKey().getId());
+					for(Vehicle v : m.getValue()) {
+						jaV.put(v.getId());
+					}
+					jo1.put("vehicles", jaV);
+		     		ja.put(jo1);
+				}
 			}
-			jo1.put("vehicles", ja1);
-			ja.put(jo1);
 		}
 		
-		/*
-		for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet()) {
-			if(m.getKey().getId().equalsIgnoreCase(r.getId())) {
-				JSONObject jo1 = new JSONObject();
-				jo1.put("road", m.getKey().getId());
-				for(Vehicle v : m.getValue()) {
-					jaV.put(v.getId());
-				}
-				jo1.put("vehicles", jaV);
-				ja.put(jo1);
-			}
-		}*/
+		for(Vehicle v : queue.get(currGreen)) {
+			jo1 = new JSONObject();
+		}
+		
 		
 		jo.put("queues", ja);
 			

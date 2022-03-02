@@ -102,6 +102,8 @@ public class Vehicle extends SimulatedObject {
 			else 
 				actSpeed = s;
 		}
+		else 
+			actSpeed = 0;
 	}
 	
 	void setContaminationClass(int c) {

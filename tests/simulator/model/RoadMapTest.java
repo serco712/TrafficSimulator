@@ -26,7 +26,7 @@ class RoadMapTest {
 		Vehicle v1 = new Vehicle("v1", 50, 1, Arrays.asList(j1, j2));
 		Vehicle v2 = new Vehicle("v2", 50, 1, Arrays.asList(j1, j2));
 		Vehicle v3 = new Vehicle("v3", 50, 1, Arrays.asList(j2, j3));
-		Vehicle v4 = new Vehicle("v4", 50, 1, Arrays.asList(j2, j3));
+	    Vehicle v4 = new Vehicle("v4", 50, 1, Arrays.asList(j2, j3));
 	
 		map.addJunction(j1);
 		map.addJunction(j2);
