@@ -11575,7 +11575,7 @@
             },
             {
               "road": "r2",
-              "vehicles": ["v1"]
+              "vehicles": []
             }
           ],
           "id": "j3"
@@ -11659,7 +11659,7 @@
             },
             {
               "road": "r2",
-              "vehicles": ["v1"]
+              "vehicles": []
             }
           ],
           "id": "j3"
@@ -11743,7 +11743,7 @@
             },
             {
               "road": "r2",
-              "vehicles": ["v1"]
+              "vehicles": []
             }
           ],
           "id": "j3"
@@ -11827,7 +11827,7 @@
             },
             {
               "road": "r2",
-              "vehicles": ["v1"]
+              "vehicles": []
             }
           ],
           "id": "j3"
@@ -16779,7 +16779,7 @@
           "queues": [
             {
               "road": "r1",
-              "vehicles": ["v2"]
+              "vehicles": []
             },
             {
               "road": "r2",
