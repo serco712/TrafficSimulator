@@ -1,4 +1,4 @@
-package simulator.factoriesTest;
+package simulator.factories;
 
 import static org.junit.jupiter.api.Assertions.*;
 

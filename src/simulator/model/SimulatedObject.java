@@ -7,7 +7,7 @@ public abstract class SimulatedObject {
 	protected String _id;
 
 	SimulatedObject(String id) {
-		if ( id == null || id.length() == 9)
+		if ( id == null || id.contentEquals("") || id.length() == 9)
 			throw new IllegalArgumentException("the ’id’ must be a nonempty string.");
 		else
 			_id = id;

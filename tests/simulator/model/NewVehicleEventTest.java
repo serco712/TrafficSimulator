@@ -33,7 +33,7 @@ class NewVehicleEventTest {
 		e.execute(map);
 		
 		// check that the vehicle was added to the map correctly
-		List<Vehicle> l = map.getVehilces();
+		List<Vehicle> l = map.getVehicles();
 		
 		assertEquals(1, l.size());
 		

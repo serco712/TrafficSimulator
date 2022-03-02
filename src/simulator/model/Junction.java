@@ -46,6 +46,7 @@ public class Junction extends SimulatedObject {
 		outgoingRoad = new HashMap<Junction, Road>();
 		road_queue = new HashMap<Road, List<Vehicle>>();
 		queue = new ArrayList<>();
+		currGreen = -1;
 	}
 
 	@Override
@@ -77,26 +78,40 @@ public class Junction extends SimulatedObject {
 	@Override
 	public JSONObject report() {
 		JSONObject jo = new JSONObject();
+		JSONObject jo1 = new JSONObject();
 		JSONArray jaV = new JSONArray();
 		JSONArray ja = new JSONArray();
 		
 		jo.put("id", _id);
-		if(currGreen == -1) {
+		if(currGreen == -1 || incomingRoad.isEmpty()) {
 			jo.put("green", "none");
 		}
 		else {
 			jo.put("green", incomingRoad.get(currGreen).getId());
 		}
 		
-		for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet()) {
-			JSONObject jo1 = new JSONObject();
-			jo1.put("road", m.getKey().getId());
-			for(Vehicle v : m.getValue()) {
-				jaV.put(v.getId());
+		for(Road r : incomingRoad) {
+			jo1.put("road", r.getId());
+			JSONArray ja1 = new JSONArray();
+			for (Vehicle v : road_queue.get(r)) {
+				ja1.put(v.getId());
 			}
-			jo1.put("vehicles", jaV);
+			jo1.put("vehicles", ja1);
 			ja.put(jo1);
 		}
+		
+		/*
+		for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet()) {
+			if(m.getKey().getId().equalsIgnoreCase(r.getId())) {
+				JSONObject jo1 = new JSONObject();
+				jo1.put("road", m.getKey().getId());
+				for(Vehicle v : m.getValue()) {
+					jaV.put(v.getId());
+				}
+				jo1.put("vehicles", jaV);
+				ja.put(jo1);
+			}
+		}*/
 		
 		jo.put("queues", ja);
 			

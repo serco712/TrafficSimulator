@@ -28,18 +28,23 @@ public class RoadMap {
 	}
 	
 	void addJunction(Junction j) {
-		if(junctions.contains(j))
-			throw new IllegalArgumentException("The junction exists");
+		for(Junction ju : junctions) {
+			if(ju.getId().equalsIgnoreCase(j.getId()))
+				throw new IllegalArgumentException("The id exists");
+		}
 		
 		junctions.add(j);
 		junction_map.put(j.getId(), j);
 	}
 	
 	void addRoad(Road r) {
-		if(roads.contains(r))
-			throw new IllegalArgumentException("The road exists");
-		else if (!junctions.contains(r.getSrc()) || !junctions.contains(r.getDest()))
+		if (!junctions.contains(r.getSrc()) || !junctions.contains(r.getDest()))
 			throw new IllegalArgumentException("The origin and the destiny do not exist");
+		
+		for(Road ro : roads) {
+			if(ro.getId().equalsIgnoreCase(r.getId()))
+				throw new IllegalArgumentException("The id exists");
+		}
 		
 		roads.add(r);
 		road_map.put(r.getId(), r);
@@ -47,8 +52,11 @@ public class RoadMap {
 	
 	void addVehicle(Vehicle v) {
 		boolean check = false;
-		if(vehicles.contains(v))
-			throw new IllegalArgumentException("The vehicle exists");
+		
+		for(Vehicle ve : vehicles) {
+			if(ve.getId().equalsIgnoreCase(v.getId()))
+				throw new IllegalArgumentException("The id exists");
+		}
 		
 		for(int i = 0; i < v.getItinerary().size() - 1; i++) {
 			if(v.getItinerary().get(i).roadTo(v.getItinerary().get(i + 1)) == null)

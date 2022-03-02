@@ -30,11 +30,11 @@ public abstract class Road extends SimulatedObject {
 	public Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {
 		super(id);
-		if(maxSpeed < 0)
+		if(maxSpeed <= 0)
 			throw new IllegalArgumentException("’maxspeed’ must be a positive number.");
 		else if(contLimit < 0)
 			throw new IllegalArgumentException("’contLimit’ must be a positive number.");
-		else if(length < 0)
+		else if(length <= 0)
 			throw new IllegalArgumentException("’length’ must be a positive number.");
 		else if(srcJunc == null || destJunc == null)
 			throw new IllegalArgumentException("the Junctions must be not null.");
@@ -42,11 +42,15 @@ public abstract class Road extends SimulatedObject {
 			throw new IllegalArgumentException("’Weather’ must be not null.");
 		origin = srcJunc;
 		end = destJunc;
-		limitSpeed = contLimit;
+		alarm = contLimit;
 		this.maxSpeed = maxSpeed;
+		limitSpeed = maxSpeed;
 		conditions = weather;
 		this.length = length;
 		vehicles = new ArrayList<>();
+		
+		origin.addOutgoingRoad(this);
+		end.addIncomingRoad(this);
 	}
 
 

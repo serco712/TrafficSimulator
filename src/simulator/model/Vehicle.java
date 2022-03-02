@@ -31,7 +31,7 @@ public class Vehicle extends SimulatedObject {
 	
 	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		super(id);
-		if (maxSpeed < 0)
+		if (maxSpeed <= 0)
 			throw new IllegalArgumentException("’maxspeed’ must be a positive number.");
 		else if (contClass < 0 || contClass > 10)
 			throw new IllegalArgumentException("’contclass’ must be a number between 0 and 10 both included.");
@@ -84,7 +84,7 @@ public class Vehicle extends SimulatedObject {
 		jo.put("class", contClass);
 		jo.put("status", status.toString());
 		
-		if(!status.equals(VehicleStatus.ARRIVED)) {
+		if(!status.equals(VehicleStatus.ARRIVED) && road != null) {
 			jo.put("road", road.getId());
 			jo.put("location", location);
 		}
@@ -96,14 +96,16 @@ public class Vehicle extends SimulatedObject {
 		if (s < 0)
 			throw new IllegalArgumentException("Speed s must be a positive number");
 		
-		if(s > maxSpeed) 
-			actSpeed = maxSpeed;
-		else 
-			actSpeed = s;
+		if (status == VehicleStatus.TRAVELING) {
+			if(s > maxSpeed) 
+				actSpeed = maxSpeed;
+			else 
+				actSpeed = s;
+		}
 	}
 	
 	void setContaminationClass(int c) {
-		if (contClass < 0 || contClass > 10)
+		if (c < 0 || c > 10)
 			throw new IllegalArgumentException("’contclass’ must be a number between 0 and 10 both included.");
 		else
 			contClass = c;

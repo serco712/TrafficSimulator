@@ -24,12 +24,12 @@ class VehicleTest {
 		assertEquals(1, v1.getContClass());
 
 		// setContClass changes the contamination class
-		v1.setContClass(4);
+		v1.setContaminationClass(4);
 		assertEquals(4, v1.getContClass());
 
 		// contamination class must be between 0 and 10 (inclusive)
-		assertThrows(Exception.class, () -> v1.setContClass(11));
-		assertThrows(Exception.class, () -> v1.setContClass(-1));
+		assertThrows(Exception.class, () -> v1.setContaminationClass(11));
+		assertThrows(Exception.class, () -> v1.setContaminationClass(-1));
 	}
 
 	@Test
