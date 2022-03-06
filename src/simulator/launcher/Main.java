@@ -86,9 +86,7 @@ public class Main {
 	private static void parseTicksOption(CommandLine line) throws ParseException {
 		try {
 			if(line.hasOption("t")) {
-				String aux = line.getOptionValue("t");
-				System.out.println(aux);
-				ticks = Integer.parseInt(aux);
+				ticks = Integer.parseInt(line.getOptionValue("t"));
 			}
 			else {
 				ticks = _timeLimitDefaultValue;
@@ -101,7 +99,6 @@ public class Main {
 	
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		String aux = line.getOptionValue("i");
-		System.out.println(aux);
 		_inFile = aux;
 		if (_inFile == null) {
 			throw new ParseException("An events file is missing");
