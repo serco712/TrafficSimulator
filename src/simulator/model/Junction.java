@@ -12,26 +12,18 @@ import org.json.JSONObject;
 public class Junction extends SimulatedObject {
 	
 	private List<Road> incomingRoad;
-	
 	private Map<Junction, Road> outgoingRoad;
-	
 	private List<List<Vehicle>> queue;
-	
 	private Map<Road, List<Vehicle>> road_queue;
-	
 	private int currGreen;
-	
 	private int lastSwitchingTime;
-	
 	private LightSwitchingStrategy switchStrategy;
-	
 	private DequeuingStrategy dequeStrategy;
-	
 	private int x;
-	
 	private int y;
 	
-	Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy
+	
+	public Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy
 			dqStrategy, int xCoor, int yCoor) {
 		super(id);
 		if(lsStrategy == null || dqStrategy == null)
@@ -58,15 +50,6 @@ public class Junction extends SimulatedObject {
 				road_queue.get(v.getRoad()).remove(v);
 				v.moveToNextRoad();
 			}
-			
-			/*
-			for(Iterator<Vehicle> iterator = queue.get(currGreen).iterator(); iterator.hasNext();) {
-			    Vehicle ve = iterator.next();
-			    if(aux.contains(ve)) {
-			        iterator.remove();
-			    }
-			}
-			*/
 			
 			for(Vehicle ve : road_queue.get(incomingRoad.get(currGreen))) {
 				if(aux.contains(ve)) {
@@ -100,23 +83,6 @@ public class Junction extends SimulatedObject {
 			jo.put("green", incomingRoad.get(currGreen).getId());
 		}
 		
-		/*
-		for(Road r : incomingRoad) {
-			for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet()) {
-				if(m.getKey().getId().equalsIgnoreCase(r.getId())) {
-					jo1 = new JSONObject();
-					jaV = new JSONArray();
-					jo1.put("road", m.getKey().getId());
-					for(Vehicle v : m.getValue()) {
-						jaV.put(v.getId());
-					}
-					jo1.put("vehicles", jaV);
-		     		ja.put(jo1);
-				}
-			}
-		}
-		*/
-		
 		for (Road r : incomingRoad) {
 			if (road_queue.containsKey(r)) {
 				jo1 = new JSONObject();
@@ -140,9 +106,7 @@ public class Junction extends SimulatedObject {
 		
 		incomingRoad.add(r);
 		List<Vehicle> aux = new ArrayList<>();
-		//for(Vehicle v : r.getVehicles()) {
-		//	aux.add(v);
-		//}
+		
 		queue.add(aux);
 		
 		road_queue.put(r, aux);
@@ -156,22 +120,10 @@ public class Junction extends SimulatedObject {
 	}
 	
 	void enter(Vehicle v) {
-		
 		road_queue.get(v.getRoad()).add(v);
-		
-		//for (Map.Entry<Road,List<Vehicle>> m : road_queue.entrySet())
-        //   if(m.getKey().equals(v.getRoad()))
-        //   	m.getValue().add(v);
 	}
 	
 	Road roadTo (Junction j) {
-		/*
-		for (Map.Entry<Junction,Road> m : outgoingRoad.entrySet())
-            if(m.getKey().equals(j))
-            	return m.getValue();
-		return null;
-		*/
-		
 		if (outgoingRoad.containsKey(j))
 			return outgoingRoad.get(j);
 		else

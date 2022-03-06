@@ -13,6 +13,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
 	
 	private static final String TYPE = "set_cont_class";
 	
+	
 	public SetContClassEventBuilder() {
 		super(TYPE);
 	}

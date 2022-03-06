@@ -6,12 +6,10 @@ import java.util.List;
 public class NewVehicleEvent extends Event {
 	
 	private String id;
-	
 	private int maxSpeed;
-	
 	private int contClass;
-	
 	private List<String> itinerary;
+	
 	
 	public NewVehicleEvent(int time, String id, int maxSpeed, int
 			contClass, List<String> itinerary) {

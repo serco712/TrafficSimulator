@@ -5,7 +5,7 @@ import org.json.JSONObject;
 public abstract class Builder<T> {
 	protected String _type;
 
-	Builder(String type) {
+	public Builder(String type) {
 		if (type == null)
 			throw new IllegalArgumentException("Invalid type: " + type);
 		else

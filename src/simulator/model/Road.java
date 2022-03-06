@@ -10,22 +10,15 @@ import org.json.JSONObject;
 public abstract class Road extends SimulatedObject {
 	
 	protected Junction origin;
-	
 	protected Junction end;
-	
 	protected int length;
-	
 	protected int maxSpeed;
-	
 	protected int limitSpeed;
-	
 	protected int alarm;
-	
 	protected Weather conditions;
-	
 	protected int totalCO2;
-	
 	protected List<Vehicle> vehicles;
+	
 	
 	public Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed,
 			int contLimit, int length, Weather weather) {

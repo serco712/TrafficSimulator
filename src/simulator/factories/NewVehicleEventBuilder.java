@@ -11,6 +11,8 @@ import simulator.model.NewVehicleEvent;
 public class NewVehicleEventBuilder extends Builder <Event> {
 	
 	private static final String TYPE = "new_vehicle";
+	
+	
 	public NewVehicleEventBuilder() {
 		super(TYPE);
 	}

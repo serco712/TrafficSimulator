@@ -10,26 +10,18 @@ import org.json.JSONObject;
 public class Vehicle extends SimulatedObject {
 	
 	private List<Junction> itinerary;
-	
 	private int maxSpeed; 
-	
 	private int actSpeed;
-	
 	private VehicleStatus status;
-	
 	private Road road;
-	
 	private int location;
-	
 	private int contClass;
-	
 	private int totalCO2;
-	
 	private int totalDist;
-	
 	private int actJunct;
 	
-	Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
+	
+	public Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
 		super(id);
 		if (maxSpeed <= 0)
 			throw new IllegalArgumentException("’maxspeed’ must be a positive number.");
@@ -119,19 +111,19 @@ public class Vehicle extends SimulatedObject {
 		
 		if(road != null)
 			road.exit(this);
-		if (status.equals(VehicleStatus.PENDING) || status.equals(VehicleStatus.WAITING)) {
-			if (actJunct == itinerary.size() - 1 || actJunct == itinerary.size()) {
-				status = VehicleStatus.ARRIVED;
-			}
-			else {
-				road = itinerary.get(actJunct).roadTo(itinerary.get(actJunct + 1));
-				actJunct++;
-				location = 0;
-				road.enter(this);
-				
-				status = VehicleStatus.TRAVELING;
-			}
+		
+		if (actJunct == itinerary.size() - 1 || actJunct == itinerary.size()) {
+			status = VehicleStatus.ARRIVED;
 		}
+		else {
+			road = itinerary.get(actJunct).roadTo(itinerary.get(actJunct + 1));
+			actJunct++;
+			location = 0;
+			road.enter(this);
+				
+			status = VehicleStatus.TRAVELING;
+		}
+
 	}
 
 	public int getLocation() {

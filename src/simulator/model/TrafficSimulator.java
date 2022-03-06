@@ -7,10 +7,9 @@ import simulator.misc.SortedArrayList;
 public class TrafficSimulator {
 	
 	private RoadMap map;
-	
 	private SortedArrayList<Event> events;
-	
 	private int _time;
+	
 	
 	public TrafficSimulator() {
 		map = new RoadMap();

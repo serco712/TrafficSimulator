@@ -14,6 +14,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 	
 	private static final String TYPE = "set_weather";
 	
+	
 	public SetWeatherEventBuilder() {
 		super(TYPE);
 	}

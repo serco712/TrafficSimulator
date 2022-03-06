@@ -8,6 +8,7 @@ public class SetWeatherEvent extends Event {
 	
 	private List<Pair<String, Weather>> ws;
 	
+	
 	public SetWeatherEvent(int time, List<Pair<String,Weather>> ws) {
 		super(time);
 		if (ws == null)

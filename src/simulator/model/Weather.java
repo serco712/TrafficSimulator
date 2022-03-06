@@ -5,8 +5,8 @@ public enum Weather {
 	SUNNY(2, 2), CLOUDY(3, 2), RAINY(10, 2), WINDY(15, 10), STORM(20, 10);
 	
 	private int factIntCit;
-	
 	private int factCit;
+	
 	
 	private Weather (int factIntCit, int factCit) {
 		this.factIntCit = factIntCit;

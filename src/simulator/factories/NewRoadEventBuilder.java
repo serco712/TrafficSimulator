@@ -8,22 +8,16 @@ import simulator.model.Weather;
 public abstract class NewRoadEventBuilder extends Builder<Event> {
 	
 	protected int time;
-	
 	protected String _id;
-	
 	protected String src;
-	
 	protected String dest;
-	
 	protected int length;
-	
 	protected int co2;
-	
 	protected int maxSpeed;
-	
 	protected Weather weather;
 	
-	NewRoadEventBuilder(String type) {
+	
+	public NewRoadEventBuilder(String type) {
 		super(type);
 	}
 

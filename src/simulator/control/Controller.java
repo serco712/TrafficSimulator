@@ -15,8 +15,8 @@ import simulator.model.TrafficSimulator;
 public class Controller {
 	
 	private TrafficSimulator sim;
-	
 	private Factory<Event> eventsFactory;
+	
 	
 	public Controller (TrafficSimulator sim, Factory<Event> eventsFactory) {
 		this.sim = sim;
