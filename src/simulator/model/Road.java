@@ -111,39 +111,39 @@ public abstract class Road extends SimulatedObject {
 	abstract void updateSpeedLimit();
 	abstract int calculateVehicleSpeed(Vehicle v);
 	
-	int getLength() {
+	public int getLength() {
 		return length;
 	}
 	
-	Junction getDest() {
+	public Junction getDest() {
 		return end;
 	}
 	
-	Junction getSrc() {
+	public Junction getSrc() {
 		return origin;
 	}
 	
-	Weather getWeather() {
+	public Weather getWeather() {
 		return conditions;
 	}
 	
-	int getContLimit(){
+	public int getContLimit(){
 		return alarm;
 	}
 	
-	int getMaxSpeed() {
+	public int getMaxSpeed() {
 		return maxSpeed;
 	}
 	
-	int getTotalCO2() {
+	public int getTotalCO2() {
 		return totalCO2;
 	}
 	
-	int getSpeedLimit() {
+	public int getSpeedLimit() {
 		return limitSpeed;
 	}
 	
-	List<Vehicle> getVehicles() {
+	public List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
 	}
 }

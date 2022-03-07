@@ -6,7 +6,7 @@
      "data" : {
      	 "time" : 1,
          "id"   : "j1",
-      	 "coor" : [100,200],
+      	 "coor" : [50,50],
       	 "ls_strategy" : { "type" : "round_robin_lss", "data" : {"timeslot" : 5} },
       	 "dq_strategy" : { "type" : "move_first_dqs",  "data" : {} }
    	 }
@@ -16,7 +16,7 @@
      "data" : {
      	 "time" : 1,
          "id"   : "j2",
-      	 "coor" : [100,200],
+      	 "coor" : [150,50],
       	 "ls_strategy" : { "type" : "round_robin_lss", "data" : {"timeslot" : 5} },
       	 "dq_strategy" : { "type" : "move_first_dqs",  "data" : {} }
    	 }
@@ -26,7 +26,7 @@
      "data" : {
      	 "time" : 1,
          "id"   : "j3",
-      	 "coor" : [100,200],
+      	 "coor" : [250,50],
       	 "ls_strategy" : { "type" : "round_robin_lss", "data" : {"timeslot" : 5} },
       	 "dq_strategy" : { "type" : "move_first_dqs",  "data" : {} }
    	 }
@@ -82,7 +82,7 @@
       "data" : {
           "time"     : 100,
           "info"     : [ { "road" : "r1", "weather": "SUNNY" }, 
-                         { "road" : "r2", "weather": "STORM" } 
+                         { "road" : "r2", "weather": "STORM" }, 
 	                   ]
   	  }
     },
@@ -91,7 +91,7 @@
       "data" : {
           "time"     : 50,
           "info"     : [ { "vehicle" : "v1", "class": 5 }, 
-                         { "vehicle" : "v2", "class": 2 } 
+                         { "vehicle" : "v2", "class": 2 }, 
                        ]
       }
     }  
