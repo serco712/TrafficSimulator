@@ -26,12 +26,11 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public int getRowCount() {
-		return _ctrl.;
+		
 	}
 
 	@Override
 	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
