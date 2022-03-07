@@ -21,7 +21,8 @@ public class DialogWindowExample extends JFrame {
 		this.setContentPane(mainPanel);
 
 		mainPanel.add(new JLabel("Click "));
-		JButton here = new JButton("HERE");
+		Icon icon = new ImageIcon("resources/icons/exit.png");
+		JButton here = new JButton(icon);
 		here.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
