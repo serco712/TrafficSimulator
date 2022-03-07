@@ -6,7 +6,7 @@
      "data" : {
      	 "time" : 1,
          "id"   : "j1",
-      	 "coor" : [100,200],
+      	 "coor" : [50,50],
       	 "ls_strategy" : { "type" : "round_robin_lss", "data" : {"timeslot" : 5} },
       	 "dq_strategy" : { "type" : "move_first_dqs",  "data" : {} }
    	 }
@@ -16,7 +16,7 @@
      "data" : {
      	 "time" : 1,
          "id"   : "j2",
-      	 "coor" : [100,200],
+      	 "coor" : [200,50],
       	 "ls_strategy" : { "type" : "round_robin_lss", "data" : {"timeslot" : 5} },
       	 "dq_strategy" : { "type" : "move_first_dqs",  "data" : {} }
    	 }
