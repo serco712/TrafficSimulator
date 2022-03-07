@@ -139,6 +139,8 @@ public class Main {
 		OutputStream out = new FileOutputStream(_outFile);
 		c.loadEvents(in);
 		c.run(ticks, out);
+		out.close();
+		in.close();
 	}
 
 	private static void start(String[] args) throws IOException {
