@@ -12,59 +12,73 @@ import simulator.model.TrafficSimObserver;
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
 	private static final long serialVersionUID = 1L;
-
-	private Controller _ctrl;
 	
-	private static final int NUM_COLS = 2;
+	private List<Event> events;
+	private String cols[] = {"Time", "Desc."};
 	
 	public EventsTableModel(Controller ctrl) {
-		_ctrl = ctrl;
+		ctrl.addObserver(this);
 	}
 	
 	@Override
 	public int getColumnCount() {
-		return NUM_COLS;
+		return cols.length;
 	}
 
 	@Override
 	public int getRowCount() {
-		return 0;
+		return events.size();
+	}
+	
+	public String getColumnName(int column) {
+		if (column >= cols.length || column < 0)
+			throw new IllegalArgumentException("The column is not found");
 		
+		return cols[column];
 	}
 
 	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		return null;
+	public Object getValueAt(int x, int y) {
+		if (y != 0 && y != 1)
+			throw new IllegalArgumentException("The column is not valid");
+		
+		if (x < 0 || x >= events.size())
+			throw new IllegalArgumentException("The row is not found");
+		
+		Event e = events.get(x);
+		if (y == 0)
+			return ("" + e.getTime());
+		else
+			return e.toString();
 	}
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		this.events = events;
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
+		this.events = events;
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		this.events = events;
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		this.events = events;
+		fireTableDataChanged();
 	}
 
 	@Override

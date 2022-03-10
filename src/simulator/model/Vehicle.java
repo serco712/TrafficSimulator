@@ -142,6 +142,10 @@ public class Vehicle extends SimulatedObject {
 		return contClass;
 	}
 	
+	public int getDistance() {
+		return totalDist;
+	}
+	
 	public VehicleStatus getStatus() {
 		return status;
 	}
