@@ -67,8 +67,4 @@ public class Controller {
 	public void addEvent(Event e) {
 		sim.addEvent(e);
 	}
-	
-	public int getEventsNumber() {
-		
-	}
 }

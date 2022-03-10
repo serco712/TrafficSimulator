@@ -2,37 +2,19 @@ package simulator.view;
 
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
+import javax.swing.JPanel;
 
 import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
-public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
+public class StatusBar extends JPanel implements TrafficSimObserver {
 	
 	private Controller _ctrl;
 	
-	private static final int NUM_COLS = 2;
-	
-	public EventsTableModel(Controller ctrl) {
+	public StatusBar(Controller ctrl) {
 		_ctrl = ctrl;
-	}
-	
-	@Override
-	public int getColumnCount() {
-		return NUM_COLS;
-	}
-
-	@Override
-	public int getRowCount() {
-		return 0;
-		
-	}
-
-	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		return null;
 	}
 
 	@Override
@@ -70,5 +52,5 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

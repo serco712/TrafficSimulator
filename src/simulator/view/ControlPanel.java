@@ -60,10 +60,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ContSelector();
+				
 			}
 			
-		})
+		});
 		
 		this.add(jtb, BorderLayout.PAGE_START);
 	}
@@ -71,7 +71,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private void loadFile() {
 		//TODO we dont understand the errors
 			try {
-				if(jfc.showOpenDialog(this) != jfc.APPROVE_OPTION) {
+				if(jfc.showOpenDialog(this) != jfc.APPROVE_OPTION)
 					throw new IOException();
 					
 				File f = jfc.getSelectedFile();
@@ -81,7 +81,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			catch (IOException io) {
 				JOptionPane jop = new JOptionPane("Error");
 			}
-		}
 	}
 
 	@Override

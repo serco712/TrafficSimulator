@@ -1,4 +1,4 @@
-package simulator.view;
+npackage simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

@@ -9,29 +9,29 @@ import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
-public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
-	
+public class RoadsTableModel extends AbstractTableModel implements TrafficSimObserver {
+
 	private Controller _ctrl;
 	
-	private static final int NUM_COLS = 2;
-	
-	public EventsTableModel(Controller ctrl) {
+	public RoadsTableModel(Controller ctrl) {
 		_ctrl = ctrl;
-	}
-	
-	@Override
-	public int getColumnCount() {
-		return NUM_COLS;
 	}
 
 	@Override
 	public int getRowCount() {
+		// TODO Auto-generated method stub
 		return 0;
-		
 	}
 
 	@Override
-	public Object getValueAt(int arg0, int arg1) {
+	public int getColumnCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -70,5 +70,5 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }
