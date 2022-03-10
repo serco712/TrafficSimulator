@@ -11,6 +11,8 @@ import simulator.model.TrafficSimObserver;
 
 public class StatusBar extends JPanel implements TrafficSimObserver {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private Controller _ctrl;
 	
 	public StatusBar(Controller ctrl) {

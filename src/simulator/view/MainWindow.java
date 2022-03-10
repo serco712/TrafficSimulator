@@ -1,4 +1,4 @@
-npackage simulator.view;
+package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import extra.jtable.EventsTableModel;
 import simulator.control.Controller;
 
 public class MainWindow extends JFrame {

@@ -11,6 +11,8 @@ import simulator.model.TrafficSimObserver;
 
 public class RoadsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
+	private static final long serialVersionUID = 1L;
+	
 	private Controller _ctrl;
 	
 	public RoadsTableModel(Controller ctrl) {
