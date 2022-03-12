@@ -26,5 +26,15 @@ public class SetContClassEvent extends Event {
 		}
 	}
 	
-
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Change CO2 class: [");
+		for(Pair<String, Integer> c : cs) {
+			str.append("(" + c.getFirst() + "," + c.getSecond() + ")");
+		}
+		str.setLength(str.length() - 1);
+		str.append("]");
+		return str.toString();
+	}
 }

@@ -33,4 +33,9 @@ public abstract class NewRoadEvent extends Event {
 	}
 	
 	abstract Road createRoadObject();
+	
+	@Override
+	public String toString() {
+		return "New Road '" + id + "'";
+	}
 }

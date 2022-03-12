@@ -12,9 +12,4 @@ public class NewCityRoadEvent extends NewRoadEvent {
 		return new CityRoad(id, src, dest, length, contLimit, maxSpeed,
 				weather);
 	}
-	
-	@Override
-	public String toString() {
-		return "New CityRoad '" + id + "'";
-	}
 }

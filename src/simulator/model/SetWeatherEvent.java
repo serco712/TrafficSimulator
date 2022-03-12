@@ -24,4 +24,16 @@ public class SetWeatherEvent extends Event {
 			map.getRoad(p.getFirst()).setWeather(p.getSecond());
 		}
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append("Change Weather: [");
+		for(Pair<String, Weather> c : ws) {
+			str.append("(" + c.getFirst() + "," + c.getSecond() + ")");
+		}
+		str.setLength(str.length() - 1);
+		str.append("]");
+		return str.toString();
+	}
 }
