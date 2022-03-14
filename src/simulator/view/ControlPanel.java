@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,12 +11,17 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -38,6 +44,20 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private JFileChooser jfc;
 	
+	private JButton fileChooser;
+	
+	private JButton contButton;
+	
+	private JButton weButton;
+	
+	private JButton runButton;
+	
+	private JButton stopButton;
+	
+	private JSpinner ticks;
+	
+	private boolean stop;
+	
 	public ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
 		_ctrl.addObserver(this);
@@ -47,7 +67,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		JToolBar jtb = new JToolBar();
 		
 		// File chooser
-		JButton fileChooser = new JButton();
+		
+		fileChooser = new JButton();
 		jfc = new JFileChooser();
 		
 		fileChooser.setIcon(new ImageIcon("resources/icons/open.png"));
@@ -64,7 +85,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		jtb.add(fileChooser);
 		
 		//Contamination class change
-		JButton contButton = new JButton();
+		contButton = new JButton();
 		contButton.setIcon(new ImageIcon("resources/icons/co2class.png"));
 		contButton.setToolTipText("Change CO2 Class of a Vehicle");
 		contButton.addActionListener(new ActionListener() {
@@ -79,7 +100,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		jtb.add(contButton);
 		
 		// Weather change
-		JButton weButton = new JButton();
+		weButton = new JButton();
 		weButton.setIcon(new ImageIcon("resources/icons/weather.png"));
 		weButton.setToolTipText("Change Weather of a Road");
 		weButton.addActionListener(new ActionListener() {
@@ -90,7 +111,93 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 			
 		});
+		
+		// Run button
+		runButton = new JButton();
+		runButton.setIcon(new ImageIcon("resources/icons/run.png"));
+		runButton.setToolTipText("Run the simulator");
+		runButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				start();
+			}
+
+		});
+		
+		jtb.add(runButton);
+		
+		// Stop Button
+		stopButton = new JButton();
+		stopButton.setIcon(new ImageIcon("resources/icons/stop.png"));
+		stopButton.setToolTipText("Stops the simulation");
+		stopButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				stopSim();
+			}
+			
+		});
+		
+		jtb.add(stopButton);
+		
+		// Ticks Spinner
+		ticks = new JSpinner(new SpinnerNumberModel());
+		ticks.setMaximumSize(new Dimension(80, 40));
+		ticks.setMinimumSize(new Dimension(80, 40));
+		ticks.setPreferredSize(new Dimension(80, 40));
+		ticks.setToolTipText("Simulator tick to run: 1-10000");
+		
+		jtb.add(new JLabel("Ticks:"));
+		jtb.add(ticks);
+		
+		jtb.add(Box.createGlue());
+		jtb.addSeparator();
+		
 		this.add(jtb, BorderLayout.PAGE_START);
+	}
+	
+	private void stopSim() {
+		stop = true;
+	}
+	
+	private void start() {
+		stop = false;
+		toggleButtons();
+		runSim((Integer) ticks.getValue());
+	}
+	
+	private void runSim (int tc) {
+		if(tc > 0 && !stop) {
+			try {
+				_ctrl.run(1);
+			}
+			catch (Exception e) {
+				stop = true;
+				toggleButtons();
+				System.out.println("The run is not possible");
+			}
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					runSim(tc - 1);
+				}
+				
+			});
+		}
+		else {
+			stop = true;
+			toggleButtons();
+		}
+	}
+	
+	private void toggleButtons() {
+		fileChooser.setEnabled(stop);
+		contButton.setEnabled(stop);
+		weButton.setEnabled(stop);
+		runButton.setEnabled(stop);
 	}
 	
 	private void changeWeather() {

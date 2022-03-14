@@ -150,9 +150,10 @@ public class Junction extends SimulatedObject {
 	}
 	
 	public String getQueue(Road r) {
-		String str = "[";
-		
-		str += "]";
-		return str;
+		StringBuilder str = new StringBuilder();
+		str.append("[");
+		str.append(r.getQueue());
+		str.append("]");
+		return str.toString();
 	}
 }

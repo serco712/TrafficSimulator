@@ -11,8 +11,11 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
+
+	private static final long serialVersionUID = 1L;
 	
 	private List<Junction> junctions;
+	
 	private String[] cols = {"Id", "Green", "Queues"};
 
 	@Override
@@ -39,9 +42,10 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 		case 2:
 			String str = "";
 			for (Road r : junctions.get(x).getInRoads())
-				str += " " + r.getId() + ":" + junctions.get(x).;
+				str += " " + r.getId() + ":" + junctions.get(x).getQueue(r);
 			return str;
 		}
+		return null;
 	}
 
 	@Override
@@ -52,26 +56,22 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		fireTableDataChanged();
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		fireTableDataChanged();
 	}
 
 	@Override
