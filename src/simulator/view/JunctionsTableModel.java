@@ -1,9 +1,11 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.Junction;
 import simulator.model.Road;
@@ -15,8 +17,12 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	private static final long serialVersionUID = 1L;
 	
 	private List<Junction> junctions;
-	
 	private String[] cols = {"Id", "Green", "Queues"};
+
+	public JunctionsTableModel(Controller ctrl) {
+		ctrl.addObserver(this);
+		junctions = new ArrayList<>();
+	}
 
 	@Override
 	public int getRowCount() {
@@ -26,6 +32,14 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	@Override
 	public int getColumnCount() {
 		return cols.length;
+	}
+	
+	@Override
+	public String getColumnName(int column) {
+		if (column >= cols.length || column < 0)
+			throw new IllegalArgumentException("The column is not found");
+		
+		return cols[column];
 	}
 
 	@Override

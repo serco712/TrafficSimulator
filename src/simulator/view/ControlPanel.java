@@ -63,6 +63,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	public ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
 		_ctrl.addObserver(this);
+		initGUI();
 	}
 	
 	public void initGUI() {
@@ -113,6 +114,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			}
 			
 		});
+		
+		jtb.add(weButton);
 		
 		// Run button
 		runButton = new JButton();
@@ -170,9 +173,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 						"Quit", boolean.class, String.class, new ImageIcon("resources/icons/listener.png"), 
 						new Option(true, false), initialValue);
 				*/
+				int res = JOptionPane.showConfirmDialog(jtb, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION,
+						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/listener.png"));
+				
+				if (res == 0)
+					System.exit(0);
 			}
 			
 		});
+		jtb.add(quitButton);
 		this.add(jtb, BorderLayout.PAGE_START);
 	}
 	

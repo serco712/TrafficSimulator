@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -15,12 +16,12 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 	private static final long serialVersionUID = 1L;
 	
 	private List<Road> roads;
-	
 	private String[] cols = {"Id", "Length", "Weather", 
 			"Max. Speed", "Speed Limit", "Total CO2", "CO2 Limit"};
 	
 	public RoadsTableModel(Controller ctrl) {
 		ctrl.addObserver(this);
+		roads = new ArrayList<>();
 	}
 
 	@Override

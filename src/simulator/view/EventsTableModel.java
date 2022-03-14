@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -18,6 +19,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	
 	public EventsTableModel(Controller ctrl) {
 		ctrl.addObserver(this);
+		events = new ArrayList<>();
 	}
 	
 	@Override

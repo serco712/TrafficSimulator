@@ -22,6 +22,7 @@ import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.TrafficSimulator;
+import simulator.view.MainWindow;
 
 public class Main {
 
@@ -138,7 +139,6 @@ public class Main {
 		InputStream in = new FileInputStream(_inFile);
 		OutputStream out = new FileOutputStream(_outFile);
 		c.loadEvents(in);
-		c.run(ticks, out);
 		out.close();
 		in.close();
 	}
@@ -146,7 +146,10 @@ public class Main {
 	private static void start(String[] args) throws IOException {
 		initFactories();
 		parseArgs(args);
-		startBatchMode();
+		//startBatchMode();
+		TrafficSimulator sim = new TrafficSimulator();
+		Controller c = new Controller(sim, _eventsFactory);
+		new MainWindow(c);
 	}
 
 	// example command lines:
