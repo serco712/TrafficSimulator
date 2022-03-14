@@ -148,4 +148,11 @@ public class Junction extends SimulatedObject {
 		// TODO check if unmodifiableList
 		return Collections.unmodifiableList(incomingRoad);
 	}
+	
+	public String getQueue(Road r) {
+		String str = "[";
+		
+		str += "]";
+		return str;
+	}
 }

@@ -146,4 +146,14 @@ public abstract class Road extends SimulatedObject {
 	public List<Vehicle> getVehicles() {
 		return Collections.unmodifiableList(vehicles);
 	}
+	
+	public String getQueue() {
+		String str = "";
+		
+		for (Vehicle v : vehicles)
+			if (v.getStatus() == VehicleStatus.WAITING)
+				str += v.getId() + ",";
+		
+		return (String) str.subSequence(0, str.length() - 1);
+	}
 }
