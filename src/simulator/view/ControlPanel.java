@@ -56,6 +56,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private JSpinner ticks;
 	
+	private JButton quitButton;
+	
 	private boolean stop;
 	
 	public ControlPanel(Controller ctrl) {
@@ -155,6 +157,22 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		jtb.add(Box.createGlue());
 		jtb.addSeparator();
 		
+		// Quit Button
+		quitButton = new JButton();
+		quitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
+		quitButton.setToolTipText("Exits the program");
+		quitButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				/*
+				JOptionPane.showOptionDialog(this, "Are you sure you want to quit?",
+						"Quit", boolean.class, String.class, new ImageIcon("resources/icons/listener.png"), 
+						new Option(true, false), initialValue);
+				*/
+			}
+			
+		});
 		this.add(jtb, BorderLayout.PAGE_START);
 	}
 	
