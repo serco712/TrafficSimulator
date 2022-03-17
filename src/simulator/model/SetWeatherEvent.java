@@ -32,7 +32,8 @@ public class SetWeatherEvent extends Event {
 		for(Pair<String, Weather> c : ws) {
 			str.append("(" + c.getFirst() + "," + c.getSecond() + "), ");
 		}
-		str.setLength(str.length() - 2);
+		if(str.length() > 17)
+			str.setLength(str.length() - 2);
 		str.append("]");
 		return str.toString();
 	}

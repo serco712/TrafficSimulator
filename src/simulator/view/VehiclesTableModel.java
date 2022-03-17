@@ -69,14 +69,15 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 				return "";
 			}
 		case 2:
-			//TODO
-			String str = "[";
+			
+			StringBuilder str = new StringBuilder("[");
 			for(Junction j : v.getItinerary()) {
-				str += j.getId() + ", ";
+				str.append(j.getId() + ", ");
 			}
-			str.substring(0, str.length() - 2);
-			str += "]";
-			return str;
+			if(str.length() >= 2)
+				str.setLength(str.length() - 2);
+			str.append("]");
+			return str.toString();
 		case 3:
 			return v.getContClass();
 		case 4:

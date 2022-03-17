@@ -145,7 +145,6 @@ public class Junction extends SimulatedObject {
 	}
 
 	public List<Road> getInRoads() {
-		// TODO check if unmodifiableList
 		return Collections.unmodifiableList(incomingRoad);
 	}
 	
@@ -155,5 +154,12 @@ public class Junction extends SimulatedObject {
 		str.append(r.getQueue());
 		str.append("]");
 		return str.toString();
+	}
+	
+	public Road getGreenOne() {
+		if(currGreen < 0 || currGreen >= incomingRoad.size())
+			return null;
+		else
+			return incomingRoad.get(currGreen);
 	}
 }

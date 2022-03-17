@@ -33,7 +33,8 @@ public class SetContClassEvent extends Event {
 		for(Pair<String, Integer> c : cs) {
 			str.append("(" + c.getFirst() + "," + c.getSecond() + "), ");
 		}
-		str.setLength(str.length() - 2);
+		if(str.length() > 19)
+			str.setLength(str.length() - 2);
 		str.append("]");
 		return str.toString();
 	}

@@ -168,11 +168,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*
-				JOptionPane.showOptionDialog(this, "Are you sure you want to quit?",
-						"Quit", boolean.class, String.class, new ImageIcon("resources/icons/listener.png"), 
-						new Option(true, false), initialValue);
-				*/
 				int res = JOptionPane.showConfirmDialog(jtb, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/listener.png"));
 				
@@ -229,7 +224,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	private void changeWeather() {
 		ChangeWeatherDialog cw = new ChangeWeatherDialog();
-		if(cw.open(map) == 1) {
+		int status = cw.open(map);
+		if (status == 1) {
 			try {
 				List<Pair<String, Weather>> l = new ArrayList<>();
 				Pair<String, Weather> p = new Pair<String, Weather>(cw.getRoad().getId(), cw.getWeather());
@@ -237,14 +233,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				_ctrl.addEvent(new SetWeatherEvent(cw.getTicks() + _time, l));
 			}
 			catch (IllegalArgumentException e) {
-				// TODO
+			// TODO
 			}
 		}
 	}
 
 	private void changeCO2class() {
 		ChangeCO2Dialog co = new ChangeCO2Dialog();
-		if(co.open(map) == 1) {
+		int status = co.open(map);
+		if(status == 1) {
 			try {
 				List<Pair<String, Integer>> l = new ArrayList<>();
 				Pair<String, Integer> p = new Pair<String, Integer>(co.getVehicle().getId(), co.getContClass());
@@ -280,19 +277,19 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		this.map = map;
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		// TODO Auto-generated method stub
-		
+		this.map = map;
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		this.map = map;
 	}
 
 	@Override
