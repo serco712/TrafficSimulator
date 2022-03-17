@@ -154,6 +154,9 @@ public abstract class Road extends SimulatedObject {
 			if (v.getStatus() == VehicleStatus.WAITING)
 				str += v.getId() + ",";
 		
+		if (str.equals(""))
+			return str;
+		
 		return (String) str.subSequence(0, str.length() - 1);
 	}
 }

@@ -1,7 +1,6 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -11,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 
@@ -73,14 +73,14 @@ public class MainWindow extends JFrame {
 		mapByRoadView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapByRoadView);
 		
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 	}
 	
 	private JPanel createViewPanel(JComponent c, String title) {
 		JPanel p = new JPanel(new BorderLayout() );
-		// TODO add a framed border to p with title
+		p.setBorder(new TitledBorder(title));
 		p.add(new JScrollPane(c));
 		return p;
 	}

@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -42,8 +43,11 @@ public class ChangeCO2Dialog extends JDialog {
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		mainPanel.add(new JLabel("Schedule an event to change the CO2 class of a vehicle"
-				+ " after a given number of simulation ticks from now."));
+		JLabel jl = new JLabel("Schedule an event to change the CO2 class of a vehicle"
+				+ " after a given number of simulation ticks from now.");
+		
+		jl.setSize(100, 200);
+		mainPanel.add(jl);
 		
 		JPanel secPanel = new JPanel();
 		vehicleModel = new DefaultComboBoxModel<>();
@@ -52,11 +56,18 @@ public class ChangeCO2Dialog extends JDialog {
 		contClass = new JComboBox<>(contClassModel);
 		ticks = new JSpinner();
 		
-		secPanel.add(new JLabel("Vehicle:"));
+		JLabel jv = new JLabel("Vehicle: ");
+		secPanel.add(jv);
+		jv.setLabelFor(vehicle);
 		secPanel.add(vehicle);
-		secPanel.add(new JLabel("CO2 class:"));
+		
+		JLabel jc = new JLabel("CO2 class: ");
+		secPanel.add(jc);
+		jc.setLabelFor(contClass);
 		secPanel.add(contClass);
-		secPanel.add(new JLabel("Ticks:"));
+		JLabel jt = new JLabel("Ticks: ");
+		secPanel.add(jt);
+		jt.setLabelFor(ticks);
 		secPanel.add(ticks);
 		
 		mainPanel.add(secPanel);
@@ -88,6 +99,7 @@ public class ChangeCO2Dialog extends JDialog {
 		confiPanel.add(okButton);
 		
 		mainPanel.add(confiPanel);
+		this.add(mainPanel);
 	}
 	
 	public int open(RoadMap rm) {
@@ -100,7 +112,9 @@ public class ChangeCO2Dialog extends JDialog {
 			contClassModel.addElement(i);
 		
 		// TODO put on the f** window
-		setVisible(true);
+		
+		this.setSize(500, 200);
+		this.setVisible(true);
 		return _status;
 	}
 	

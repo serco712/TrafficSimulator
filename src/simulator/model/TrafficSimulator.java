@@ -1,5 +1,8 @@
 package simulator.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONObject;
 
 import simulator.misc.SortedArrayList;
@@ -10,22 +13,25 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 	private SortedArrayList<Event> events;
 	private int _time;
 	// TODO doubt
-	private TrafficSimObserver tso;
+	private List<TrafficSimObserver> tso;
 	
 	public TrafficSimulator() {
 		map = new RoadMap();
 		events = new SortedArrayList<>();
+		tso = new ArrayList<>();
 	}
 	
 	public void addEvent(Event e) {
 		events.add(e);
-		tso.onEventAdded(map, events, e, _time);
+		for(TrafficSimObserver ts : tso)
+			ts.onEventAdded(map, events, e, _time);
 	}
 	
 	public void advance() {
 		_time++;
 		
-		tso.onAdvanceStart(map, events, _time);
+		for(TrafficSimObserver ts : tso)
+			ts.onAdvanceStart(map, events, _time);
 		
 		SortedArrayList<Event> aux = new SortedArrayList<>();
 		for (Event e : events) {
@@ -45,18 +51,21 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 				r.advance(_time);
 		}
 		catch(Exception e) {
-			tso.onError(e.getMessage());
+			for(TrafficSimObserver ts : tso)
+				ts.onError(e.getMessage());
 			throw new RuntimeException(e.getMessage());
 		}
 		
-		tso.onAdvanceEnd(map, events, _time);
+		for(TrafficSimObserver ts : tso)
+			ts.onAdvanceEnd(map, events, _time);
 	}
 	
 	public void reset() {
 		map.reset();
 		events.clear();
 		_time = 0;
-		tso.onReset(map, events, _time);
+		for(TrafficSimObserver ts : tso)
+			ts.onReset(map, events, _time);
 	}
 	
 	public JSONObject report() {
@@ -70,13 +79,17 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 
 	@Override
 	public void addObserver(TrafficSimObserver o) {
-		tso = o;
-		tso.onRegister(map, events, _time);
+		tso.add(o);
+		for(TrafficSimObserver ts : tso)
+			ts.onRegister(map, events, _time);
 	}
 
 	@Override
 	public void removeObserver(TrafficSimObserver o) {
-		// TODO doubt
-		tso = null;
+		List<TrafficSimObserver> aux = new ArrayList<>();
+		for(TrafficSimObserver ts : tso) 
+			if(!ts.equals(o))
+				aux.add(ts);
+		tso = aux;
 	}
 }

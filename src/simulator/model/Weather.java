@@ -2,15 +2,22 @@ package simulator.model;
 
 public enum Weather {
 	
-	SUNNY(2, 2), CLOUDY(3, 2), RAINY(10, 2), WINDY(15, 10), STORM(20, 10);
+	SUNNY(2, 2, "resources/icons/sun.png"), 
+	CLOUDY(3, 2, "resources/icons/cloud.png"), 
+	RAINY(10, 2, "resources/icons/rain.png"), 
+	WINDY(15, 10, "resources/icons/wind.png"), 
+	STORM(20, 10, "resources/icons/storm.png");
 	
 	private int factIntCit;
+	
 	private int factCit;
 	
+	private String file;
 	
-	private Weather (int factIntCit, int factCit) {
+	private Weather (int factIntCit, int factCit, String file) {
 		this.factIntCit = factIntCit;
 		this.factCit = factCit;
+		this.file = file;
 	}
 	
 	public int getFactIntCit() {
@@ -19,5 +26,9 @@ public enum Weather {
 
 	public int getFactCit() {
 		return factCit;
+	}
+	
+	public String getFile() {
+		return file;
 	}
 }

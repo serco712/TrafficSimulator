@@ -30,9 +30,9 @@ public class SetWeatherEvent extends Event {
 		StringBuilder str = new StringBuilder();
 		str.append("Change Weather: [");
 		for(Pair<String, Weather> c : ws) {
-			str.append("(" + c.getFirst() + "," + c.getSecond() + ")");
+			str.append("(" + c.getFirst() + "," + c.getSecond() + "), ");
 		}
-		str.setLength(str.length() - 1);
+		str.setLength(str.length() - 2);
 		str.append("]");
 		return str.toString();
 	}

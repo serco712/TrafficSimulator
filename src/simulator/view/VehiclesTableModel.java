@@ -17,7 +17,6 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 	private static final long serialVersionUID = 1L;
 	
 	private List<Vehicle> vehicles;
-	
 	private String[] cols = {"Id", "Location", "Itinerary", "CO2 Class", 
 			"Max. Speed", "Speed", "Total CO2", "Distance"};
 	
@@ -101,21 +100,25 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
+		vehicles = map.getVehicles();
 		fireTableDataChanged();
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
+		vehicles = map.getVehicles();
 		fireTableDataChanged();
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
+		vehicles = map.getVehicles();
 		fireTableDataChanged();
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
+		vehicles = map.getVehicles();
 		fireTableDataChanged();
 	}
 

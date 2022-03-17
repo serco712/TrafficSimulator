@@ -90,6 +90,7 @@ public class ChangeWeatherDialog extends JDialog {
 		confiPanel.add(okButton);
 		
 		mainPanel.add(confiPanel);
+		this.add(mainPanel);
 	}
 	
 	public int open(RoadMap rm) {
@@ -102,7 +103,9 @@ public class ChangeWeatherDialog extends JDialog {
 			weatherModel.addElement(w);
 		
 		// TODO put on the f** window
-		setVisible(true);
+		
+		this.setSize(500, 400);
+		this.setVisible(true);
 		return _status;
 	}
 
