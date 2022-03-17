@@ -1,23 +1,32 @@
 package simulator.model;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public enum Weather {
 	
-	SUNNY(2, 2, "resources/icons/sun.png"), 
-	CLOUDY(3, 2, "resources/icons/cloud.png"), 
-	RAINY(10, 2, "resources/icons/rain.png"), 
-	WINDY(15, 10, "resources/icons/wind.png"), 
-	STORM(20, 10, "resources/icons/storm.png");
+	SUNNY(2, 2, "sun.png"), 
+	CLOUDY(3, 2, "cloud.png"), 
+	RAINY(10, 2, "rain.png"), 
+	WINDY(15, 10, "wind.png"), 
+	STORM(20, 10, "storm.png");
 	
 	private int factIntCit;
 	
 	private int factCit;
 	
-	private String file;
+	private String str;
 	
-	private Weather (int factIntCit, int factCit, String file) {
+	private Image ima;
+	
+	private Weather (int factIntCit, int factCit, String ima) {
 		this.factIntCit = factIntCit;
 		this.factCit = factCit;
-		this.file = file;
+		this.str = ima;
+		this.ima = loadImage(str);
 	}
 	
 	public int getFactIntCit() {
@@ -28,7 +37,17 @@ public enum Weather {
 		return factCit;
 	}
 	
-	public String getFile() {
-		return file;
+	public Image getImage() {
+		return ima;
+	}
+	
+	// loads an image from a file
+	private Image loadImage(String img) {
+		Image i = null;
+		try {
+			return ImageIO.read(new File("resources/icons/" + img));
+		} catch (IOException e) {
+		}
+		return i;
 	}
 }

@@ -21,6 +21,7 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
 import simulator.model.VehicleStatus;
+import simulator.model.Weather;
 
 public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 
@@ -76,7 +77,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 		int x2 = getWidth() - 100;
 		for(Road r : _map.getRoads()) {
 			g.setColor(_BLACK_COLOR);
-			g.drawString(r.getId(), x1 - 10, y);
+			g.drawString(r.getId(), x1 - 40, y + 4);
 			g.drawLine(x1, y, x2, y);
 			
 			// Junction left
@@ -97,8 +98,8 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			g.drawString(r.getSrc().getId(), x2, y);
 			
 			drawVehicles(g, r.getVehicles(), x1, x2, y);
-			
-			y += 20;
+			drawImage(g, r, x2, y);
+			y += 40;
 		}
 	}
 	
@@ -119,6 +120,15 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			}
 		}
 	}
+	
+	private void drawImage(Graphics g, Road r, int x, int y) {
+		g.drawImage(r.getWeather().getImage(), x + 20, y - 18, 32, 32, this);
+		int C = (int) Math.floor(Math.min((double) r.getTotalCO2()/(1.0 + (double) r.getContLimit()),1.0) /
+			0.19);
+		Image i = img[C];
+		g.drawImage(i, x + 60, y - 18, 32, 32, this);
+	}
+	
 	// loads an image from a file
 	private Image loadImage(String img) {
 		Image i = null;
