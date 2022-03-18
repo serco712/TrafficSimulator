@@ -85,7 +85,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			g.fillOval(x1 - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 			
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(r.getSrc().getId(), x1, y);
+			g.drawString(r.getSrc().getId(), x1 - 5, y - 10);
 			
 			// Junction right
 			if(r.getDest().getGreenOne().equals(r))
@@ -95,7 +95,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			g.fillOval(x2 - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 			
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(r.getSrc().getId(), x2, y);
+			g.drawString(r.getSrc().getId(), x2 - 5, y - 10);
 			
 			drawVehicles(g, r.getVehicles(), x1, x2, y);
 			drawImage(g, r, x2, y);

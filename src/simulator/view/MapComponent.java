@@ -148,7 +148,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 			// draw the junction's identifier at (x,y)
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(j.getId(), x, y);
+			g.drawString(j.getId(), x - 5, y - 10);
 		}
 	}
 
