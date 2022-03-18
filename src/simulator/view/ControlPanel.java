@@ -169,7 +169,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int res = JOptionPane.showConfirmDialog(jtb, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION,
-						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/listener.png"));
+						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/ari.jpg"));
 				
 				if (res == 0)
 					System.exit(0);
