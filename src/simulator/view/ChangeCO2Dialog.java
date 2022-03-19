@@ -1,6 +1,6 @@
 package simulator.view;
 
-import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,7 +32,8 @@ public class ChangeCO2Dialog extends JDialog {
 	
 	private DefaultComboBoxModel<Integer> contClassModel;
 	
-	public ChangeCO2Dialog () {
+	public ChangeCO2Dialog (Frame frame) {
+		super(frame, true);
 		initGUI();
 	}
 

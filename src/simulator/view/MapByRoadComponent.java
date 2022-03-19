@@ -21,7 +21,6 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
 import simulator.model.VehicleStatus;
-import simulator.model.Weather;
 
 public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 
@@ -95,7 +94,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			g.fillOval(x2 - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 			
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(r.getSrc().getId(), x2 - 5, y - 10);
+			g.drawString(r.getDest().getId(), x2 - 5, y - 10);
 			
 			drawVehicles(g, r.getVehicles(), x1, x2, y);
 			drawImage(g, r, x2, y);

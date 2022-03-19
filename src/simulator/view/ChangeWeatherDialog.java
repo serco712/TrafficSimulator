@@ -8,7 +8,6 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,7 +33,8 @@ public class ChangeWeatherDialog extends JDialog {
 	
 	private DefaultComboBoxModel<Weather> weatherModel;
 	
-	public ChangeWeatherDialog() {
+	public ChangeWeatherDialog(Frame parent) {
+		super(parent, true);
 		initGUI();
 	}
 

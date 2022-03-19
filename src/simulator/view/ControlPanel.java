@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.Frame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -7,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,7 +223,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void changeWeather() {
-		ChangeWeatherDialog cw = new ChangeWeatherDialog();
+		ChangeWeatherDialog cw = new ChangeWeatherDialog((Frame) SwingUtilities.getWindowAncestor(this));
 		int status = cw.open(map);
 		if (status == 1) {
 			try {
@@ -239,7 +239,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 	private void changeCO2class() {
-		ChangeCO2Dialog co = new ChangeCO2Dialog();
+		ChangeCO2Dialog co = new ChangeCO2Dialog((Frame) SwingUtilities.getWindowAncestor(this));
 		int status = co.open(map);
 		if(status == 1) {
 			try {
