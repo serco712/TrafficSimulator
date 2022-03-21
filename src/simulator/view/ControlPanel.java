@@ -68,7 +68,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	
 	public void initGUI() {
 		JToolBar jtb = new JToolBar();
-		
+		this.setLayout(new BorderLayout());
+		this.add(jtb, BorderLayout.PAGE_START);
 		// File chooser
 		
 		fileChooser = new JButton();
@@ -177,7 +178,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			
 		});
 		jtb.add(quitButton);
-		this.add(jtb, BorderLayout.PAGE_START);
 	}
 	
 	private void stopSim() {
