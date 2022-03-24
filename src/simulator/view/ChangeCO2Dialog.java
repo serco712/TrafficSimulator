@@ -1,6 +1,8 @@
 package simulator.view;
 
+import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,11 +46,22 @@ public class ChangeCO2Dialog extends JDialog {
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		JLabel jl = new JLabel("Schedule an event to change the CO2 class of a vehicle"
-				+ " after a given number of simulation ticks from now.");
 		
-		jl.setSize(100, 200);
-		mainPanel.add(jl);
+		JPanel txt_panel = new JPanel();
+		txt_panel.setLayout(new GridLayout(2, 1));
+		JPanel text1 = new JPanel();
+		text1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JPanel text2 = new JPanel();
+		text2.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		JLabel jl1 = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number");
+		JLabel jl2 = new JLabel("of simulation ticks from now.");
+		
+		text1.add(jl1);
+		text2.add(jl2);
+		txt_panel.add(text1);
+		txt_panel.add(text2);
+		mainPanel.add(txt_panel);
 		
 		JPanel secPanel = new JPanel();
 		vehicleModel = new DefaultComboBoxModel<>();
@@ -112,9 +125,9 @@ public class ChangeCO2Dialog extends JDialog {
 		for(int i = 0; i <= 10; i++)
 			contClassModel.addElement(i);
 		
-		// TODO put on the f** window
-		
-		this.setSize(500, 200);
+		this.setSize(500, 175);
+		this.setLocation((getParent().getWidth() - this.getWidth()) / 2, (getParent().getHeight()
+				- this.getHeight()) / 2);
 		this.setVisible(true);
 		return _status;
 	}

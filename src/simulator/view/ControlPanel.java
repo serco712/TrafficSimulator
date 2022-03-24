@@ -18,9 +18,11 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
@@ -87,6 +89,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		});
 		
 		jtb.add(fileChooser);
+		jtb.addSeparator();
 		
 		//Contamination class change
 		contButton = new JButton();
@@ -117,6 +120,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		});
 		
 		jtb.add(weButton);
+		jtb.addSeparator();
 		
 		// Run button
 		runButton = new JButton();
@@ -170,7 +174,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int res = JOptionPane.showConfirmDialog(jtb, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION,
-						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/ari.jpg"));
+						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/listener.png"));
 				
 				if (res == 0)
 					System.exit(0);

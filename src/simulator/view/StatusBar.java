@@ -1,6 +1,7 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 
 import simulator.control.Controller;
@@ -41,7 +41,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		info.add(_timeInfo);
-		info.add(new JLabel("                                       |"));
+		info.add(Box.createGlue());
+		info.add(Box.createRigidArea(new Dimension(30, 10)));
 		info.add(_eventsInfo);
 		this.add(info, BorderLayout.WEST);
 	}

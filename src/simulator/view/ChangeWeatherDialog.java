@@ -1,6 +1,9 @@
 package simulator.view;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -46,8 +49,21 @@ public class ChangeWeatherDialog extends JDialog {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
-		mainPanel.add(new JLabel("Schedule an event to change the weather of a road after"
-				+ " a given number of simulation ticks from now."));
+		JPanel txt_panel = new JPanel();
+		txt_panel.setLayout(new GridLayout(2, 1));
+		JPanel txt1 = new JPanel();
+		txt1.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JPanel txt2 = new JPanel();
+		txt2.setLayout(new FlowLayout(FlowLayout.LEFT));
+		
+		JLabel text1 = new JLabel("Schedule an event to change the weather of a road after a given number of");
+		JLabel text2 = new JLabel("simulation ticks from now.");
+		
+		text1.add(txt1);
+		text2.add(txt2);
+		txt_panel.add(text1);
+		txt_panel.add(text2);
+		mainPanel.add(txt_panel);
 		
 		JPanel secPanel = new JPanel();
 		roadModel = new DefaultComboBoxModel<>();
@@ -107,9 +123,9 @@ public class ChangeWeatherDialog extends JDialog {
 		for (Weather w : Weather.values())
 			weatherModel.addElement(w);
 		
-		// TODO put on the f** window
-		
-		this.setSize(500, 400);
+		this.setSize(500, 150);
+		this.setLocation((getParent().getWidth() - this.getWidth()) / 2, (getParent().getHeight()
+				- this.getHeight()) / 2);
 		this.setVisible(true);
 		return _status;
 	}
