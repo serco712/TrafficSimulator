@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
@@ -14,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import simulator.model.RoadMap;
 import simulator.model.Vehicle;
@@ -47,28 +49,20 @@ public class ChangeCO2Dialog extends JDialog {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
-		JPanel txt_panel = new JPanel();
-		txt_panel.setLayout(new GridLayout(2, 1));
-		JPanel text1 = new JPanel();
-		text1.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JPanel text2 = new JPanel();
-		text2.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JLabel jl = new JLabel("<html><p>Schedule an event to change the CO2 class of a vehicle after a given number "
+				+ "of <br> simulation ticks from now.</p></html>");
+		JPanel lbp = new JPanel(new FlowLayout());
 		
-		JLabel jl1 = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number");
-		JLabel jl2 = new JLabel("of simulation ticks from now.");
-		
-		text1.add(jl1);
-		text2.add(jl2);
-		txt_panel.add(text1);
-		txt_panel.add(text2);
-		mainPanel.add(txt_panel);
-		
+		lbp.add(jl, FlowLayout.LEFT);
+		mainPanel.add(lbp);
 		JPanel secPanel = new JPanel();
 		vehicleModel = new DefaultComboBoxModel<>();
 		vehicle = new JComboBox<>(vehicleModel);
+		vehicle.setPreferredSize(new Dimension(85, 20));
 		contClassModel = new DefaultComboBoxModel<>();
 		contClass = new JComboBox<>(contClassModel);
-		ticks = new JSpinner();
+		contClass.setPreferredSize(new Dimension(50, 20));
+		ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 		
 		JLabel jv = new JLabel("Vehicle: ");
 		secPanel.add(jv);

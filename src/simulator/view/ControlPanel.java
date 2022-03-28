@@ -153,7 +153,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		jtb.add(stopButton);
 		
 		// Ticks Spinner
-		ticks = new JSpinner(new SpinnerNumberModel());
+		ticks = new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
+	
 		ticks.setMaximumSize(new Dimension(80, 40));
 		ticks.setMinimumSize(new Dimension(80, 40));
 		ticks.setPreferredSize(new Dimension(80, 40));

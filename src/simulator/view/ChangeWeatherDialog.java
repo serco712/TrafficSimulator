@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 import simulator.model.Road;
 import simulator.model.RoadMap;
@@ -49,34 +50,26 @@ public class ChangeWeatherDialog extends JDialog {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
-		JPanel txt_panel = new JPanel();
-		txt_panel.setLayout(new GridLayout(2, 1));
-		JPanel txt1 = new JPanel();
-		txt1.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JPanel txt2 = new JPanel();
-		txt2.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JPanel jp = new JPanel(new FlowLayout());
 		
-		JLabel text1 = new JLabel("Schedule an event to change the weather of a road after a given number of");
-		JLabel text2 = new JLabel("simulation ticks from now.");
-		
-		text1.add(txt1);
-		text2.add(txt2);
-		txt_panel.add(text1);
-		txt_panel.add(text2);
-		mainPanel.add(txt_panel);
-		
+		JLabel txt = new JLabel("<html><p>Schedule an event to change the weather of a road after a given number of"
+								+ "<br> simulation ticks from now.</p></html>");
+		jp.add(txt, FlowLayout.LEFT);
+		mainPanel.add(jp);
 		JPanel secPanel = new JPanel();
 		roadModel = new DefaultComboBoxModel<>();
 		road = new JComboBox<>(roadModel);
+		road.setPreferredSize(new Dimension(70, 20));
 		weatherModel = new DefaultComboBoxModel<>();
 		weather = new JComboBox<>(weatherModel);
-		ticks = new JSpinner();
+		weather.setPreferredSize(new Dimension(80, 20));
+		ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 		
-		secPanel.add(new JLabel("Road:"));
+		secPanel.add(new JLabel("Road: "));
 		secPanel.add(road);
-		secPanel.add(new JLabel("Weather:"));
+		secPanel.add(new JLabel("Weather: "));
 		secPanel.add(weather);
-		secPanel.add(new JLabel("Ticks:"));
+		secPanel.add(new JLabel("Ticks: "));
 		secPanel.add(ticks);
 		
 		mainPanel.add(secPanel);

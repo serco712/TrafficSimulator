@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import simulator.control.Controller;
@@ -30,6 +32,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	
 	public StatusBar(Controller ctrl) {
 		_timeInfo = new JLabel();
+		_timeInfo.setPreferredSize(new Dimension(200, 20));
 		_eventsInfo = new JLabel();
 		_ctrl = ctrl;
 		_ctrl.addObserver(this);
@@ -37,12 +40,14 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void initGUI() {
-		JPanel info = new JPanel(new FlowLayout(100));
+		JPanel info = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		info.add(_timeInfo);
-		info.add(Box.createGlue());
-		info.add(Box.createRigidArea(new Dimension(30, 10)));
+		JSeparator js = new JSeparator();
+		js.setPreferredSize(new Dimension(5, 20));
+		js.setOrientation(JSeparator.VERTICAL);
+		info.add(js);
 		info.add(_eventsInfo);
 		this.add(info, BorderLayout.WEST);
 	}
