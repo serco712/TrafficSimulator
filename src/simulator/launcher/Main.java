@@ -1,7 +1,6 @@
 package simulator.launcher;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -160,6 +159,7 @@ public class Main {
 		InputStream in = new FileInputStream(_inFile);
 		OutputStream out = new FileOutputStream(_outFile);
 		c.loadEvents(in);
+		c.run(ticks, out);
 		out.close();
 		in.close();
 	}

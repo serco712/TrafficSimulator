@@ -6,11 +6,9 @@ import java.awt.FlowLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 
 import simulator.control.Controller;

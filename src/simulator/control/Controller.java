@@ -37,8 +37,8 @@ public class Controller {
 		}
 	}
 	
-	public void run (int n) {
-		//PrintStream p = new PrintStream(out);
+	public void run (int n, OutputStream out) {
+		PrintStream p = new PrintStream(out);
 
 		JSONArray ja = new JSONArray();
 		JSONObject jo = new JSONObject();
@@ -49,7 +49,12 @@ public class Controller {
 		}
 		
 		jo.put("states", ja);
-		//p.print(jo.toString(2));
+		p.print(jo.toString(2));
+	}
+	
+	public void run(int n) {
+		for(int i = 0; i < n; i++)
+			sim.advance();
 	}
 	
 	public void reset () {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import simulator.control.Controller;
 
 public class EventsTableModel2 extends AbstractTableModel {
 
