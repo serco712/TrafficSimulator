@@ -291,7 +291,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 	private void loadFile() {
-		//TODO we dont understand the errors
 			try {
 				if(jfc.showOpenDialog(this) != JFileChooser.APPROVE_OPTION)
 					throw new IOException();
@@ -536,21 +535,18 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		this.map = map;
 		_time = time;
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
 		this.map = map;
 		_time = time;
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		this.map = map;
 		_time = time;
 	}
@@ -563,7 +559,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onError(String err) {
-		// TODO Auto-generated method stub
 		
 	}
 

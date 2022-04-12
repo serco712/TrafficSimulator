@@ -42,7 +42,6 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		}
 		events = aux;
 		
-		// TODO doubt
 		try {
 			for (Junction j : map.getJunctions())
 				j.advance(_time);
