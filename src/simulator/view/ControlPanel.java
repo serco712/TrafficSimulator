@@ -53,9 +53,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton runButton;
 	private JButton stopButton;
 	private JSpinner ticks;
+	private JSpinner delay;
 	private JButton quitButton;
 	
-	private boolean stop;
+	private volatile Thread _thread;
 	
 	public ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
@@ -94,6 +95,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		ticks = newTicksSpinner();
 		jtb.add(new JLabel("Ticks:"));
 		jtb.add(ticks);
+		
+		// Delay Spinner
+		delay = newDelaySpinner();
+		jtb.add(new JLabel("Delay:"));
+		jtb.add(delay);
 		
 		jtb.add(Box.createGlue());
 		jtb.addSeparator();
@@ -197,6 +203,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return ticks;
 	}
 	
+	public JSpinner newDelaySpinner() {
+		JSpinner delay = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
+		
+		ticks.setMaximumSize(new Dimension(80, 40));
+		ticks.setMinimumSize(new Dimension(80, 40));
+		ticks.setPreferredSize(new Dimension(80, 40));
+		ticks.setToolTipText("Delay tick to run: 0-1000");
+	
+		return delay;
+	}
+	
 	public JButton newQuitButton(JToolBar jtb) {
 		JButton quitButton = new JButton();
 		quitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
@@ -218,45 +235,45 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void stopSim() {
-		stop = true;
+		if (_thread != null)
+			_thread.interrupt();
 	}
 	
 	private void start() {
-		stop = false;
-		toggleButtons();
-		runSim((Integer) ticks.getValue());
+		toggleButtons(false);
+		_thread = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				runSim((Integer) ticks.getValue(), (Integer) delay.getValue());
+			}
+			
+		});
+		_thread.start();
 	}
 	
-	private void runSim (int tc) {
-		if(tc > 0 && !stop) {
+	@SuppressWarnings("static-access")
+	private void runSim (int tc, long delay) {
+		while (tc > 0 && !_thread.isInterrupted()) {
 			try {
 				_ctrl.run(1);
+				_thread.sleep(delay);
 			}
 			catch (Exception e) {
-				stop = true;
-				toggleButtons();
+				toggleButtons(true);
 				System.out.println("The run is not possible");
 			}
-			SwingUtilities.invokeLater(new Runnable() {
-
-				@Override
-				public void run() {
-					runSim(tc - 1);
-				}
-				
-			});
+			tc--;
 		}
-		else {
-			stop = true;
-			toggleButtons();
-		}
+		
+		toggleButtons(true);
 	}
 	
-	private void toggleButtons() {
-		fileChooser.setEnabled(stop);
-		contButton.setEnabled(stop);
-		weButton.setEnabled(stop);
-		runButton.setEnabled(stop);
+	private void toggleButtons(boolean a) {
+		fileChooser.setEnabled(a);
+		contButton.setEnabled(a);
+		weButton.setEnabled(a);
+		runButton.setEnabled(a);
 	}
 	
 	private void changeWeather() {
