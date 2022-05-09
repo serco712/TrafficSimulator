@@ -20,8 +20,8 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	private String[] cols = {"Id", "Green", "Queues"};
 
 	public JunctionsTableModel(Controller ctrl) {
-		ctrl.addObserver(this);
 		junctions = new ArrayList<>();
+		ctrl.addObserver(this);
 	}
 
 	@Override

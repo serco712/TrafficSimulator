@@ -147,6 +147,10 @@ public abstract class Road extends SimulatedObject {
 		return Collections.unmodifiableList(vehicles);
 	}
 	
+	public int getAlarm() {
+		return alarm;
+	}
+	
 	public String getQueue() {
 		String str = "";
 		

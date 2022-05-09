@@ -33,8 +33,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		_timeInfo.setPreferredSize(new Dimension(200, 20));
 		_eventsInfo = new JLabel();
 		_ctrl = ctrl;
-		_ctrl.addObserver(this);
 		initGUI();
+		_ctrl.addObserver(this);
 	}
 	
 	private void initGUI() {

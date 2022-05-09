@@ -43,8 +43,8 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			loadImage("cont_3.png"), loadImage("cont_4.png"), loadImage("cont_5.png")};
 	
 	public MapByRoadComponent(Controller ctrl) {
-		ctrl.addObserver(this);
 		initGUI();
+		ctrl.addObserver(this);
 	}
 	
 	private void initGUI() {

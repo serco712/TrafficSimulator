@@ -20,8 +20,8 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 			"Max. Speed", "Speed Limit", "Total CO2", "CO2 Limit"};
 	
 	public RoadsTableModel(Controller ctrl) {
-		ctrl.addObserver(this);
 		roads = new ArrayList<>();
+		ctrl.addObserver(this);
 	}
 
 	@Override

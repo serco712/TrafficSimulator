@@ -21,8 +21,8 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 			"Max. Speed", "Speed", "Total CO2", "Distance"};
 	
 	public VehiclesTableModel(Controller ctrl) {
-		ctrl.addObserver(this);
 		vehicles = new ArrayList<>();
+		ctrl.addObserver(this);
 	}
 	
 	@Override

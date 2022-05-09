@@ -35,9 +35,10 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
 		
 		SortedArrayList<Event> aux = new SortedArrayList<>();
 		for (Event e : events) {
-			if (e.getTime() == _time)
+			if (e.getTime() == _time) {
 				e.execute(map);
-			else
+			}
+			else if (e.getTime() > _time)
 				aux.add(e);
 		}
 		events = aux;

@@ -123,7 +123,7 @@ public class Junction extends SimulatedObject {
 		road_queue.get(v.getRoad()).add(v);
 	}
 	
-	Road roadTo (Junction j) {
+	public Road roadTo (Junction j) {
 		if (outgoingRoad.containsKey(j))
 			return outgoingRoad.get(j);
 		else
@@ -159,5 +159,9 @@ public class Junction extends SimulatedObject {
 			return null;
 		else
 			return incomingRoad.get(currGreen);
+	}
+	
+	public Map<Junction, Road> getOutgoingRoad() {
+		return Collections.unmodifiableMap(outgoingRoad);
 	}
 }

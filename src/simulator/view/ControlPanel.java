@@ -3,7 +3,6 @@ package simulator.view;
 import java.awt.Frame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -13,12 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,12 +26,10 @@ import javax.swing.SwingUtilities;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Event;
-import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.SetContClassEvent;
 import simulator.model.SetWeatherEvent;
 import simulator.model.TrafficSimObserver;
-import simulator.model.Vehicle;
 import simulator.model.Weather;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver {
@@ -53,18 +46,19 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private JButton runButton;
 	private JButton stopButton;
 	private JSpinner ticks;
-	private JSpinner delay;
 	private JButton quitButton;
+	private ChangeWeatherDialog cw;
+	private ChangeCO2Dialog co;
 	
-	private volatile Thread _thread;
+	private boolean stop;
 	
 	public ControlPanel(Controller ctrl) {
 		_ctrl = ctrl;
-		_ctrl.addObserver(this);
 		initGUI();
+		_ctrl.addObserver(this);
 	}
 	
-	public void initGUI() {
+	private void initGUI() {
 		JToolBar jtb = new JToolBar();
 		this.setLayout(new BorderLayout());
 		this.add(jtb, BorderLayout.PAGE_START);
@@ -96,11 +90,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		jtb.add(new JLabel("Ticks:"));
 		jtb.add(ticks);
 		
-		// Delay Spinner
-		delay = newDelaySpinner();
-		jtb.add(new JLabel("Delay:"));
-		jtb.add(delay);
-		
 		jtb.add(Box.createGlue());
 		jtb.addSeparator();
 		
@@ -109,7 +98,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		jtb.add(quitButton);
 	}
 	
-	public JButton newJFCButton() {
+	private JButton newJFCButton() {
 		JButton fileChooser = new JButton();
 		jfc = new JFileChooser();
 		jfc.setCurrentDirectory(new File("resources/examples/"));
@@ -128,7 +117,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return fileChooser;
 	}
 	
-	public JButton newContButton() {
+	private JButton newContButton() {
 		JButton contButton = new JButton();
 		contButton.setIcon(new ImageIcon("resources/icons/co2class.png"));
 		contButton.setToolTipText("Change CO2 Class of a Vehicle");
@@ -144,7 +133,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return contButton;
 	}
 	
-	public JButton newWeatherButton() {
+	private JButton newWeatherButton() {
 		JButton weButton = new JButton();
 		weButton.setIcon(new ImageIcon("resources/icons/weather.png"));
 		weButton.setToolTipText("Change Weather of a Road");
@@ -160,7 +149,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return weButton;
 	}
 	
-	public JButton newRunButton() {
+	private JButton newRunButton() {
 		JButton runButton = new JButton();
 		runButton.setIcon(new ImageIcon("resources/icons/run.png"));
 		runButton.setToolTipText("Run the simulator");
@@ -176,7 +165,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return runButton;
 	}
 	
-	public JButton newStopButton() {
+	private JButton newStopButton() {
 		JButton stopButton = new JButton();
 		stopButton.setIcon(new ImageIcon("resources/icons/stop.png"));
 		stopButton.setToolTipText("Stops the simulation");
@@ -192,7 +181,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return stopButton;
 	}
 	
-	public JSpinner newTicksSpinner() {
+	private JSpinner newTicksSpinner() {
 		JSpinner ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 		
 		ticks.setMaximumSize(new Dimension(80, 40));
@@ -203,18 +192,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return ticks;
 	}
 	
-	public JSpinner newDelaySpinner() {
-		JSpinner delay = new JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
-		
-		ticks.setMaximumSize(new Dimension(80, 40));
-		ticks.setMinimumSize(new Dimension(80, 40));
-		ticks.setPreferredSize(new Dimension(80, 40));
-		ticks.setToolTipText("Delay tick to run: 0-1000");
-	
-		return delay;
-	}
-	
-	public JButton newQuitButton(JToolBar jtb) {
+	private JButton newQuitButton(JToolBar jtb) {
 		JButton quitButton = new JButton();
 		quitButton.setIcon(new ImageIcon("resources/icons/exit.png"));
 		quitButton.setToolTipText("Exits the program");
@@ -222,10 +200,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int res = JOptionPane.showConfirmDialog(jtb, "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION,
+				int res = JOptionPane.showConfirmDialog(SwingUtilities.getWindowAncestor(ControlPanel.this), "Are you sure you want to quit?", "Quit", JOptionPane.YES_NO_OPTION,
 						JOptionPane.WARNING_MESSAGE, new ImageIcon("resources/icons/error.jpg"));
-				
-				if (res == 0)
+				if (res == JOptionPane.OK_OPTION)
 					System.exit(0);
 			}
 			
@@ -235,49 +212,55 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 	
 	private void stopSim() {
-		if (_thread != null)
-			_thread.interrupt();
+		stop = true;
 	}
 	
 	private void start() {
-		toggleButtons(false);
-		_thread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				runSim((Integer) ticks.getValue(), (Integer) delay.getValue());
-			}
-			
-		});
-		_thread.start();
+		stop = false;
+		toggleButtons();
+		runSim((Integer) ticks.getValue());
 	}
 	
-	@SuppressWarnings("static-access")
-	private void runSim (int tc, long delay) {
-		while (tc > 0 && !_thread.isInterrupted()) {
+	private void runSim (int tc) {
+		if(tc > 0 && !stop) {
 			try {
 				_ctrl.run(1);
-				_thread.sleep(delay);
 			}
 			catch (Exception e) {
-				toggleButtons(true);
-				System.out.println("The run is not possible");
+				stop = true;
+				toggleButtons();
+				JOptionPane.showMessageDialog(
+						SwingUtilities.getWindowAncestor(ControlPanel.this), 
+						"Ha surgido un error durante la simulacion", 
+						"Error",  
+						JOptionPane.ERROR_MESSAGE);
 			}
-			tc--;
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					runSim(tc - 1);
+				}
+				
+			});
 		}
-		
-		toggleButtons(true);
+		else {
+			stop = true;
+			toggleButtons();
+		}
 	}
 	
-	private void toggleButtons(boolean a) {
-		fileChooser.setEnabled(a);
-		contButton.setEnabled(a);
-		weButton.setEnabled(a);
-		runButton.setEnabled(a);
+	private void toggleButtons() {
+		fileChooser.setEnabled(stop);
+		contButton.setEnabled(stop);
+		weButton.setEnabled(stop);
+		runButton.setEnabled(stop);
 	}
 	
 	private void changeWeather() {
-		ChangeWeatherDialog cw = new ChangeWeatherDialog((Frame) SwingUtilities.getWindowAncestor(this));
+		if (cw == null)
+			cw = new ChangeWeatherDialog((Frame) SwingUtilities.getWindowAncestor(this));
+		
 		int status = cw.open(map);
 		if (status == 1) {
 			try {
@@ -292,7 +275,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 	private void changeCO2class() {
-		ChangeCO2Dialog co = new ChangeCO2Dialog((Frame) SwingUtilities.getWindowAncestor(this));
+		if (co == null)
+			co = new ChangeCO2Dialog((Frame) SwingUtilities.getWindowAncestor(this));
+		
 		int status = co.open(map);
 		if(status == 1) {
 			try {
@@ -319,230 +304,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			catch (IOException io) {
 				new JOptionPane("Error");
 			}
-	}
-	
-	public class ChangeCO2Dialog extends JDialog {
-		
-		private static final long serialVersionUID = 1L;
-
-		private int _status;
-		private JComboBox<Vehicle> vehicle;
-		private DefaultComboBoxModel<Vehicle> vehicleModel;
-		private JSpinner ticks;
-		private JComboBox<Integer> contClass;
-		private DefaultComboBoxModel<Integer> contClassModel;
-		
-		public ChangeCO2Dialog (Frame frame) {
-			super(frame, true);
-			initGUI();
-		}
-
-		private void initGUI() {
-			_status = 0;
-			
-			setTitle("Change CO2 Class");
-			
-			JPanel mainPanel = new JPanel();
-			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-			
-			JLabel jl = new JLabel("<html><p>Schedule an event to change the CO2 class of a vehicle after a given number "
-					+ "of <br> simulation ticks from now.</p></html>");
-			JPanel lbp = new JPanel(new FlowLayout());
-			
-			lbp.add(jl, FlowLayout.LEFT);
-			mainPanel.add(lbp);
-			JPanel secPanel = new JPanel();
-			vehicleModel = new DefaultComboBoxModel<>();
-			vehicle = new JComboBox<>(vehicleModel);
-			vehicle.setPreferredSize(new Dimension(85, 20));
-			contClassModel = new DefaultComboBoxModel<>();
-			contClass = new JComboBox<>(contClassModel);
-			contClass.setPreferredSize(new Dimension(50, 20));
-			ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
-			
-			JLabel jv = new JLabel("Vehicle: ");
-			secPanel.add(jv);
-			jv.setLabelFor(vehicle);
-			secPanel.add(vehicle);
-			
-			JLabel jc = new JLabel("CO2 class: ");
-			secPanel.add(jc);
-			jc.setLabelFor(contClass);
-			secPanel.add(contClass);
-			JLabel jt = new JLabel("Ticks: ");
-			secPanel.add(jt);
-			jt.setLabelFor(ticks);
-			secPanel.add(ticks);
-			
-			mainPanel.add(secPanel);
-			
-			JPanel confiPanel = new JPanel();
-			JButton cancelButton = new JButton("Cancel");
-			cancelButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					_status = 0;
-					ChangeCO2Dialog.this.setVisible(false);
-				}
-				
-			});
-			JButton okButton = new JButton("OK");
-			okButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(vehicleModel.getSelectedItem() != null && contClassModel.getSelectedItem() != null) {
-						_status = 1;
-						ChangeCO2Dialog.this.setVisible(false);
-					}
-				}
-				
-			});
-			confiPanel.add(cancelButton);
-			confiPanel.add(okButton);
-			
-			mainPanel.add(confiPanel);
-			this.add(mainPanel);
-		}
-		
-		public int open(RoadMap rm) {
-			vehicleModel.removeAllElements();
-			for(Vehicle v : rm.getVehicles())
-				vehicleModel.addElement(v);
-			
-			contClassModel.removeAllElements();
-			for(int i = 0; i <= 10; i++)
-				contClassModel.addElement(i);
-			
-			this.setSize(500, 175);
-			this.setLocation((getParent().getWidth() - this.getWidth()) / 2, (getParent().getHeight()
-					- this.getHeight()) / 2);
-			this.setVisible(true);
-			return _status;
-		}
-		
-		public int getTicks() {
-			return (Integer) ticks.getValue();
-		}
-		
-		public Vehicle getVehicle() {
-			return (Vehicle) vehicleModel.getSelectedItem();
-		}
-		
-		public int getContClass() {
-			return (Integer) contClassModel.getSelectedItem();
-		}
-	}
-	
-	public class ChangeWeatherDialog extends JDialog {
-
-		private static final long serialVersionUID = 1L;
-
-		private int _status;
-		private JComboBox<Road> road;
-		private DefaultComboBoxModel<Road> roadModel;
-		private JSpinner ticks;
-		private JComboBox<Weather> weather;
-		private DefaultComboBoxModel<Weather> weatherModel;
-		
-		public ChangeWeatherDialog(Frame parent) {
-			super(parent, true);
-			initGUI();
-		}
-
-		private void initGUI() {
-			_status = 0;
-			
-			setTitle("Change Road Weather");
-			
-			JPanel mainPanel = new JPanel();
-			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-			
-			JPanel jp = new JPanel(new FlowLayout());
-			
-			JLabel txt = new JLabel("<html><p>Schedule an event to change the weather of a road after a given number of"
-									+ "<br> simulation ticks from now.</p></html>");
-			jp.add(txt, FlowLayout.LEFT);
-			mainPanel.add(jp);
-			JPanel secPanel = new JPanel();
-			roadModel = new DefaultComboBoxModel<>();
-			road = new JComboBox<>(roadModel);
-			road.setPreferredSize(new Dimension(70, 20));
-			weatherModel = new DefaultComboBoxModel<>();
-			weather = new JComboBox<>(weatherModel);
-			weather.setPreferredSize(new Dimension(80, 20));
-			ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
-			
-			secPanel.add(new JLabel("Road: "));
-			secPanel.add(road);
-			secPanel.add(new JLabel("Weather: "));
-			secPanel.add(weather);
-			secPanel.add(new JLabel("Ticks: "));
-			secPanel.add(ticks);
-			
-			mainPanel.add(secPanel);
-			
-			JPanel confiPanel = new JPanel();
-			JButton cancelButton = new JButton("Cancel");
-			cancelButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					_status = 0;
-					ChangeWeatherDialog.this.setVisible(false);
-				}
-				
-			});
-			JButton okButton = new JButton("OK");
-			okButton.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if(roadModel.getSelectedItem() != null && weatherModel.getSelectedItem() != null) {
-						_status = 1;
-						ChangeWeatherDialog.this.setVisible(false);
-					}
-				}
-				
-			});
-			confiPanel.add(cancelButton);
-			confiPanel.add(okButton);
-			
-			mainPanel.add(confiPanel);
-			pack();
-			setResizable(false);
-			setVisible(false);
-			this.add(mainPanel);
-		}
-		
-		public int open(RoadMap rm) {
-			roadModel.removeAllElements();
-			for(Road v : rm.getRoads())
-				roadModel.addElement(v);
-			
-			weatherModel.removeAllElements();
-			for (Weather w : Weather.values())
-				weatherModel.addElement(w);
-			
-			this.setSize(500, 150);
-			this.setLocation((getParent().getWidth() - this.getWidth()) / 2, (getParent().getHeight()
-					- this.getHeight()) / 2);
-			this.setVisible(true);
-			return _status;
-		}
-
-		public int getTicks() {
-			return (Integer) ticks.getValue();
-		}
-		
-		public Road getRoad() {
-			return (Road) roadModel.getSelectedItem();
-		}
-		
-		public Weather getWeather() {
-			return (Weather) weatherModel.getSelectedItem();
-		}
 	}
 	
 	@Override

@@ -74,7 +74,7 @@ public class MainWindow extends JFrame {
 		mapByRoadView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapByRoadView);
 		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 	}

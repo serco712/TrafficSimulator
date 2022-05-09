@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.cli.CommandLine;
@@ -29,13 +30,9 @@ import simulator.view.MainWindow;
 public class Main {
 
 	private final static Integer _timeLimitDefaultValue = 10;
-	
 	private static int ticks = 300;
-	
 	private static String _inFile = null;
-	
 	private static String _outFile = null;
-	
 	private static Factory<Event> _eventsFactory = null; 
 	
 	// Mode true: GUI, Mode False: Console
@@ -82,7 +79,7 @@ public class Main {
 				Option.builder("o").longOpt("output").hasArg().desc("Output file, where reports are written.").build());
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
 		cmdLineOptions.addOption(Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator's main loop (default value is 10)").build());
-		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc("Chus mode").build());
+		cmdLineOptions.addOption(Option.builder("m").longOpt("mode").hasArg().desc("Choose mode").build());
 		return cmdLineOptions;
 	}
 
@@ -117,7 +114,13 @@ public class Main {
 	}
 
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
-		_outFile = line.getOptionValue("o");
+		try {
+			if(line.hasOption("o"))
+				_outFile = line.getOptionValue("o");
+		}
+		catch (NumberFormatException ne) {
+			throw new ParseException("Excpt");
+		}
 	}
 	
 	private static void parseChooseModeOption (CommandLine line) throws ParseException {
@@ -157,10 +160,18 @@ public class Main {
 		TrafficSimulator sim = new TrafficSimulator();
 		Controller c = new Controller(sim, _eventsFactory);
 		InputStream in = new FileInputStream(_inFile);
-		OutputStream out = new FileOutputStream(_outFile);
+		OutputStream out = null;
+		if (_outFile != null)
+			out = new FileOutputStream(_outFile);
+		
 		c.loadEvents(in);
 		c.run(ticks, out);
-		out.close();
+		
+		if(out == null)
+			System.out.println("Done!");
+		
+		if (out != null)
+			out.close();
 		in.close();
 	}
 	
@@ -168,19 +179,28 @@ public class Main {
 		TrafficSimulator sim = new TrafficSimulator();
 		Controller ctrl = new Controller(sim, _eventsFactory);
 		InputStream in;
-		if (_inFile != null) {
-			in = new FileInputStream(_inFile);
-			ctrl.loadEvents(in);
-			in.close();
-		}
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				new MainWindow(ctrl);
+		try {
+			if (_inFile != null) {
+				in = new FileInputStream(_inFile);
+				ctrl.loadEvents(in);
+				in.close();
 			}
-			
-		});
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					new MainWindow(ctrl);
+				}
+				
+			});
+		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(
+					new MainWindow(ctrl), 
+					"Ha surgido un error durante la simulacion", 
+					"Error",  
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private static void start(String[] args) throws IOException {

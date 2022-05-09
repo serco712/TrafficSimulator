@@ -162,6 +162,10 @@ public class Vehicle extends SimulatedObject {
 		return road;
 	}
 	
+	public int getActJunction() {
+		return actJunct;
+	}
+	
 	public static class OrderVehicle implements Comparator<Vehicle> {
 
 		@Override

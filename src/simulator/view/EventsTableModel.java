@@ -18,8 +18,8 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	private String cols[] = {"Time", "Desc."};
 	
 	public EventsTableModel(Controller ctrl) {
-		ctrl.addObserver(this);
 		events = new ArrayList<>();
+		ctrl.addObserver(this);
 	}
 	
 	@Override

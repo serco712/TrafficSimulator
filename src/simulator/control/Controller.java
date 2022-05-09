@@ -38,8 +38,6 @@ public class Controller {
 	}
 	
 	public void run (int n, OutputStream out) {
-		PrintStream p = new PrintStream(out);
-
 		JSONArray ja = new JSONArray();
 		JSONObject jo = new JSONObject();
 		
@@ -49,7 +47,12 @@ public class Controller {
 		}
 		
 		jo.put("states", ja);
-		p.print(jo.toString(2));
+		if (out == null)
+			System.out.println(jo.toString(2));
+		else {
+			PrintStream p = new PrintStream(out);
+			p.print(jo.toString(2));
+		}
 	}
 	
 	public void run(int n) {

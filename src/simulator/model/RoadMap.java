@@ -12,15 +12,10 @@ import org.json.JSONObject;
 public class RoadMap {
 	
 	private List<Junction> junctions;
-	
 	private List<Road> roads;
-	
 	private List<Vehicle> vehicles;
-	
 	private Map<String, Junction> junction_map;
-	
 	private Map<String, Road> road_map;
-	
 	private Map<String, Vehicle> vehicle_map;
 	
 	protected RoadMap () {
